@@ -1,0 +1,121 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using microsofttodo, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "microsofttodo",
+      "manual"
+    ],
+    "suggested_filename": "util_1114_workflow_1114_automate_microsofttodo_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting microsofttodo, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.266273",
+    "original_filename": "1114_workflow_1114.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        200
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft To Do",
+      "type": "n8n-nodes-base.microsoftToDo",
+      "position": [
+        450,
+        200
+      ],
+      "parameters": {
+        "title": "Document Microsoft To Do node",
+        "operation": "create",
+        "taskListId": "AQMkADAwATNiZmYAZC0zOTkAMy02ZWZjLTAwAi0wMAoALgAAA3i1fHMTrftIhQBzhywL64UBAFB0wRiJW1FJmmlvlAkVFQA-AAACARIAAAA=",
+        "additionalFields": {
+          "importance": "high"
+        }
+      },
+      "credentials": {
+        "microsoftToDoOAuth2Api": "Microsoft OAuth Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft To Do1",
+      "type": "n8n-nodes-base.microsoftToDo",
+      "position": [
+        650,
+        200
+      ],
+      "parameters": {
+        "taskId": "={{$json[\"id\"]}}",
+        "operation": "update",
+        "taskListId": "={{$node[\"Microsoft To Do\"].parameter[\"taskListId\"]}}",
+        "updateFields": {
+          "status": "inProgress"
+        }
+      },
+      "credentials": {
+        "microsoftToDoOAuth2Api": "Microsoft OAuth Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft To Do2",
+      "type": "n8n-nodes-base.microsoftToDo",
+      "position": [
+        850,
+        200
+      ],
+      "parameters": {
+        "taskId": "={{$json[\"id\"]}}",
+        "taskListId": "={{$node[\"Microsoft To Do\"].parameter[\"taskListId\"]}}"
+      },
+      "credentials": {
+        "microsoftToDoOAuth2Api": "Microsoft OAuth Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Microsoft To Do": {
+      "main": [
+        [
+          {
+            "node": "Microsoft To Do1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft To Do1": {
+      "main": [
+        [
+          {
+            "node": "Microsoft To Do2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Microsoft To Do",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

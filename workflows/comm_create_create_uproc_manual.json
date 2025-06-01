@@ -1,0 +1,97 @@
+{
+  "documentation": {
+    "description": "COMM workflow that creates data/processes using uproc, manual, telegram, triggered via manual",
+    "category": "COMM",
+    "business_function": "create",
+    "key_integrations": [
+      "uproc",
+      "manual",
+      "telegram"
+    ],
+    "suggested_filename": "comm_create_create_uproc_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting uproc, manual, telegram. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:45.901758",
+    "original_filename": "191_Create_a_screenshot_of_a_website_and_send_it_to_a_telegram_channel.json"
+  },
+  "id": "191",
+  "name": "Create a screenshot of a website and send it to a telegram channel",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "file": "={{$node[\"uProc\"].json[\"message\"][\"result\"]}}",
+        "chatId": "",
+        "operation": "sendPhoto",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": "Telegram n8n bot"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "uProc",
+      "type": "n8n-nodes-base.uproc",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "url": "https://n8n.io",
+        "tool": "getUrlScreenshot",
+        "group": "image",
+        "width": "1024",
+        "fullpage": "yes",
+        "additionalOptions": {}
+      },
+      "credentials": {
+        "uprocApi": "uProc credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "uProc": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "uProc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

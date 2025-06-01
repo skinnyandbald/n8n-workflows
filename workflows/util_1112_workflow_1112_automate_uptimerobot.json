@@ -1,0 +1,99 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using uptimerobot, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "uptimerobot"
+    ],
+    "suggested_filename": "util_1112_workflow_1112_automate_uptimerobot.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting uptimerobot. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.108036",
+    "original_filename": "1112_workflow_1112.json"
+  },
+  "nodes": [
+    {
+      "name": "UptimeRobot2",
+      "type": "n8n-nodes-base.uptimeRobot",
+      "position": [
+        890,
+        320
+      ],
+      "parameters": {
+        "id": "={{$json[\"id\"]}}",
+        "resource": "monitor",
+        "operation": "get"
+      },
+      "credentials": {
+        "uptimeRobotApi": "UptimeRobot API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "UptimeRobot",
+      "type": "n8n-nodes-base.uptimeRobot",
+      "position": [
+        490,
+        320
+      ],
+      "parameters": {
+        "url": "https://n8n.io",
+        "type": 1,
+        "resource": "monitor",
+        "operation": "create",
+        "friendlyName": "n8n"
+      },
+      "credentials": {
+        "uptimeRobotApi": "UptimeRobot API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "UptimeRobot1",
+      "type": "n8n-nodes-base.uptimeRobot",
+      "position": [
+        690,
+        320
+      ],
+      "parameters": {
+        "id": "={{$json[\"id\"]}}",
+        "resource": "monitor",
+        "operation": "update",
+        "updateFields": {
+          "friendly_name": "n8n website"
+        }
+      },
+      "credentials": {
+        "uptimeRobotApi": "UptimeRobot API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "UptimeRobot": {
+      "main": [
+        [
+          {
+            "node": "UptimeRobot1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UptimeRobot1": {
+      "main": [
+        [
+          {
+            "node": "UptimeRobot2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

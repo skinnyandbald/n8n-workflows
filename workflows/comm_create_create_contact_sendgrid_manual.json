@@ -1,0 +1,125 @@
+{
+  "documentation": {
+    "description": "COMM workflow that create_contacts data/processes using sendgrid, manual, triggered via manual",
+    "category": "COMM",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "sendgrid",
+      "manual"
+    ],
+    "suggested_filename": "comm_create_create_contact_sendgrid_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting sendgrid, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.412606",
+    "original_filename": "209_Create,_update_and_get_a_contact_using_the_SendGrid_node.json"
+  },
+  "id": "209",
+  "name": "Create, update and get a contact using the SendGrid node",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        270,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "SendGrid",
+      "type": "n8n-nodes-base.sendGrid",
+      "position": [
+        470,
+        300
+      ],
+      "parameters": {
+        "email": "",
+        "resource": "contact",
+        "additionalFields": {
+          "firstName": ""
+        }
+      },
+      "credentials": {
+        "sendGridApi": "SendGrid Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "SendGrid1",
+      "type": "n8n-nodes-base.sendGrid",
+      "position": [
+        670,
+        300
+      ],
+      "parameters": {
+        "email": "={{$node[\"SendGrid\"].parameter[\"email\"]}}",
+        "resource": "contact",
+        "additionalFields": {
+          "lastName": ""
+        }
+      },
+      "credentials": {
+        "sendGridApi": "SendGrid Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "SendGrid2",
+      "type": "n8n-nodes-base.sendGrid",
+      "position": [
+        870,
+        300
+      ],
+      "parameters": {
+        "by": "email",
+        "email": "={{$node[\"SendGrid\"].parameter[\"email\"]}}",
+        "resource": "contact",
+        "operation": "get"
+      },
+      "credentials": {
+        "sendGridApi": "SendGrid Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "SendGrid": {
+      "main": [
+        [
+          {
+            "node": "SendGrid1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SendGrid1": {
+      "main": [
+        [
+          {
+            "node": "SendGrid2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "SendGrid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

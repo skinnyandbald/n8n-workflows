@@ -1,0 +1,85 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using postgres, writebinaryfile, spreadsheetfile, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "postgres",
+      "writebinaryfile",
+      "spreadsheetfile"
+    ],
+    "suggested_filename": "data_2_workflow_2_automate_postgres_writebinaryfile.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting postgres, writebinaryfile, spreadsheetfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:45.770846",
+    "original_filename": "2_workflow_2.json"
+  },
+  "nodes": [
+    {
+      "name": "Run Query",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        450,
+        450
+      ],
+      "parameters": {
+        "query": "SELECT name, ean FROM product",
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "postgres": "postgres"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "position": [
+        600,
+        450
+      ],
+      "parameters": {
+        "operation": "toFile"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "position": [
+        750,
+        450
+      ],
+      "parameters": {
+        "fileName": "spreadsheet.xls"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Run Query": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

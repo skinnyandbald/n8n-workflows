@@ -1,0 +1,39 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using thehive, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "thehive"
+    ],
+    "suggested_filename": "util_receive_update_thehive.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting thehive. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.932430",
+    "original_filename": "161_Receive_updates_when_an_event_occurs_in_TheHive.json"
+  },
+  "id": "161",
+  "name": "Receive updates when an event occurs in TheHive",
+  "nodes": [
+    {
+      "name": "TheHive Trigger",
+      "type": "n8n-nodes-base.theHiveTrigger",
+      "position": [
+        690,
+        220
+      ],
+      "webhookId": "bef3fea8-2d68-43e8-9061-6c17c1059c86",
+      "parameters": {
+        "events": [
+          "*"
+        ]
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

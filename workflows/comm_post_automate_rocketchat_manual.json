@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using rocketchat, manual, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "rocketchat",
+      "manual"
+    ],
+    "suggested_filename": "comm_post_automate_rocketchat_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting rocketchat, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.267199",
+    "original_filename": "90_Post_a_message_to_a_channel_in_RocketChat.json"
+  },
+  "id": "90",
+  "name": "Post a message to a channel in RocketChat",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Rocketchat",
+      "type": "n8n-nodes-base.rocketchat",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "text": "Hello everyone",
+        "channel": "#general",
+        "options": {},
+        "attachments": []
+      },
+      "credentials": {
+        "rocketchatApi": "Rocket"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Rocketchat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

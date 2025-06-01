@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, philipshue, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "philipshue"
+    ],
+    "suggested_filename": "util_turn_automate_manual_philipshue.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, philipshue. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.320369",
+    "original_filename": "58_Turn_on_a_light_and_set_its_brightness.json"
+  },
+  "id": "58",
+  "name": "Turn on a light and set its brightness",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        590,
+        260
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Philips Hue",
+      "type": "n8n-nodes-base.philipsHue",
+      "position": [
+        790,
+        260
+      ],
+      "parameters": {
+        "lightId": "123",
+        "additionalFields": {
+          "bri": 90
+        }
+      },
+      "credentials": {
+        "philipsHueOAuth2Api": "philips-hue"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Philips Hue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

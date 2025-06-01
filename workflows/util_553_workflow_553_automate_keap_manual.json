@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using keap, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "keap",
+      "manual"
+    ],
+    "suggested_filename": "util_553_workflow_553_automate_keap_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting keap, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.409912",
+    "original_filename": "553_workflow_553.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Keap",
+      "type": "n8n-nodes-base.keap",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "options": {},
+        "resource": "contact",
+        "operation": "getAll"
+      },
+      "credentials": {
+        "keapOAuth2Api": "keap_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Keap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using amqp, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "amqp"
+    ],
+    "suggested_filename": "comm_receive_automate_amqp.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting amqp. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.079895",
+    "original_filename": "135_Receive_messages_for_an_ActiveMQ_queue_via_AMQP_Trigger.json"
+  },
+  "id": "135",
+  "name": "Receive messages for an ActiveMQ queue via AMQP Trigger",
+  "nodes": [
+    {
+      "name": "AMQP Trigger",
+      "type": "n8n-nodes-base.amqpTrigger",
+      "position": [
+        650,
+        200
+      ],
+      "parameters": {
+        "sink": ""
+      },
+      "credentials": {
+        "amqp": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

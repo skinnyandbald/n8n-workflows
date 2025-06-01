@@ -1,0 +1,39 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that automates data/processes using hubspot, triggered via manual",
+    "category": "BIZ",
+    "business_function": "automate",
+    "key_integrations": [
+      "hubspot"
+    ],
+    "suggested_filename": "biz_628_workflow_628_automate_hubspot.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting hubspot. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.137087",
+    "original_filename": "628_workflow_628.json"
+  },
+  "nodes": [
+    {
+      "name": "Hubspot Trigger",
+      "type": "n8n-nodes-base.hubspotTrigger",
+      "position": [
+        700,
+        260
+      ],
+      "webhookId": "9fe8c037-be4f-4809-a7c2-96e509bfc52e",
+      "parameters": {
+        "appId": "dghert3",
+        "additionalFields": {
+          "maxConcurrentRequests": 5
+        }
+      },
+      "credentials": {
+        "hubspotDeveloperApi": "hubspot_trigger"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

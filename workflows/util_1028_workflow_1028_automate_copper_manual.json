@@ -1,0 +1,135 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using copper, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "copper",
+      "manual"
+    ],
+    "suggested_filename": "util_1028_workflow_1028_automate_copper_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting copper, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.636821",
+    "original_filename": "1028_workflow_1028.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Copper",
+      "type": "n8n-nodes-base.copper",
+      "position": [
+        450,
+        320
+      ],
+      "parameters": {
+        "name": "Harshil",
+        "resource": "person",
+        "additionalFields": {
+          "emails": {
+            "emailFields": [
+              {
+                "email": "harshil@n8n.io",
+                "category": "work"
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {
+        "copperApi": "Copper API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Copper1",
+      "type": "n8n-nodes-base.copper",
+      "position": [
+        650,
+        320
+      ],
+      "parameters": {
+        "personId": "={{$json[\"id\"]}}",
+        "resource": "person",
+        "operation": "update",
+        "updateFields": {
+          "phone_numbers": {
+            "phoneFields": [
+              {
+                "number": "1234567890",
+                "category": "work"
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {
+        "copperApi": "Copper API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Copper2",
+      "type": "n8n-nodes-base.copper",
+      "position": [
+        850,
+        320
+      ],
+      "parameters": {
+        "personId": "={{$json[\"id\"]}}",
+        "resource": "person",
+        "operation": "get"
+      },
+      "credentials": {
+        "copperApi": "Copper API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Copper": {
+      "main": [
+        [
+          {
+            "node": "Copper1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copper1": {
+      "main": [
+        [
+          {
+            "node": "Copper2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Copper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

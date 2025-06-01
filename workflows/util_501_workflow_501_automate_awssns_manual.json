@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awssns, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awssns",
+      "manual"
+    ],
+    "suggested_filename": "util_501_workflow_501_automate_awssns_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awssns, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.370544",
+    "original_filename": "501_workflow_501.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS SNS",
+      "type": "n8n-nodes-base.awsSns",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "topic": "n8n-rocks",
+        "message": "This is a test message",
+        "subject": "This is a test subject"
+      },
+      "credentials": {
+        "aws": "aws"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "AWS SNS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

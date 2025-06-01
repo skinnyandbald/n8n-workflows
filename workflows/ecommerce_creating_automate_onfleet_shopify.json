@@ -1,0 +1,75 @@
+{
+  "documentation": {
+    "description": "ECOMMERCE workflow that automates data/processes using onfleet, shopify, triggered via manual",
+    "category": "ECOMMERCE",
+    "business_function": "automate",
+    "key_integrations": [
+      "onfleet",
+      "shopify"
+    ],
+    "suggested_filename": "ecommerce_creating_automate_onfleet_shopify.json",
+    "business_value": "Streamlines e-commerce operations from order processing to customer management by connecting onfleet, shopify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.318978",
+    "original_filename": "13_Creating_an_Onfleet_Task_for_a_new_Shopify_Fulfillment.json"
+  },
+  "id": 13,
+  "name": "Creating an Onfleet Task for a new Shopify Fulfillment",
+  "nodes": [
+    {
+      "name": "Shopify Trigger",
+      "type": "n8n-nodes-base.shopifyTrigger",
+      "position": [
+        240,
+        440
+      ],
+      "webhookId": "576e8785-bbb4-426b-a922-da671efced68",
+      "parameters": {
+        "topic": "fulfillments/create"
+      },
+      "credentials": {
+        "shopifyApi": {
+          "id": "6",
+          "name": "Shopify account"
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Onfleet",
+      "type": "n8n-nodes-base.onfleet",
+      "position": [
+        460,
+        440
+      ],
+      "parameters": {
+        "operation": "create",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "onfleetApi": {
+          "id": "2",
+          "name": "Onfleet API Key"
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Shopify Trigger": {
+      "main": [
+        [
+          {
+            "node": "Onfleet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

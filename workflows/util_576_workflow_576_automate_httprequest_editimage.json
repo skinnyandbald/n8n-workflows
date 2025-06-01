@@ -1,0 +1,81 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using httprequest, editimage, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest",
+      "editimage",
+      "manual"
+    ],
+    "suggested_filename": "util_576_workflow_576_automate_httprequest_editimage.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting httprequest, editimage, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:45.969750",
+    "original_filename": "576_workflow_576.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Edit Image",
+      "type": "n8n-nodes-base.editImage",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "operation": "information"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "url": "https://picsum.photos/200/300",
+        "options": {},
+        "responseFormat": "file"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

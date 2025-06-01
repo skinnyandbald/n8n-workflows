@@ -1,0 +1,125 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, cratedb, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "cratedb"
+    ],
+    "suggested_filename": "util_597_workflow_597_automate_manual_cratedb.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, cratedb. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 7,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.300862",
+    "original_filename": "597_workflow_597.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        550,
+        400
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "CrateDB",
+      "type": "n8n-nodes-base.crateDb",
+      "position": [
+        750,
+        400
+      ],
+      "parameters": {
+        "query": "CREATE TABLE test (id INT, name STRING);",
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "crateDb": "cratedb_creds"
+      },
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "name": "CrateDB1",
+      "type": "n8n-nodes-base.crateDb",
+      "position": [
+        1150,
+        400
+      ],
+      "parameters": {
+        "table": "test",
+        "columns": "id, name"
+      },
+      "credentials": {
+        "crateDb": "cratedb_creds"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        950,
+        400
+      ],
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "id",
+              "value": 0
+            }
+          ],
+          "string": [
+            {
+              "name": "name",
+              "value": "n8n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    }
+  ],
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "CrateDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CrateDB": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "CrateDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

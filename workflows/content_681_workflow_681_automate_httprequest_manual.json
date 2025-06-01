@@ -1,0 +1,88 @@
+{
+  "documentation": {
+    "description": "CONTENT workflow that automates data/processes using httprequest, manual, linkedin, triggered via manual",
+    "category": "CONTENT",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest",
+      "manual",
+      "linkedin"
+    ],
+    "suggested_filename": "content_681_workflow_681_automate_httprequest_manual.json",
+    "business_value": "Automates content creation, management, and distribution processes by connecting httprequest, manual, linkedin. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.138351",
+    "original_filename": "681_workflow_681.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "url": "https://n8n.io/n8n-logo.png",
+        "options": {},
+        "responseFormat": "file"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "position": [
+        640,
+        300
+      ],
+      "parameters": {
+        "text": "this is a test image post",
+        "person": "gZG0JALzuy",
+        "postAs": "person",
+        "additionalFields": {},
+        "shareMediaCategory": "IMAGE"
+      },
+      "credentials": {
+        "linkedInOAuth2Api": "linkedin_demo"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

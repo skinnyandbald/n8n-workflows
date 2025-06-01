@@ -1,0 +1,44 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using activecampaign, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "activecampaign"
+    ],
+    "suggested_filename": "ai_receive_ai_process_activecampaign.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting activecampaign. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.224539",
+    "original_filename": "112_Receive_updates_when_a_new_account_is_added_by_an_admin_in_ActiveCampaign.json"
+  },
+  "id": "112",
+  "name": "Receive updates when a new account is added by an admin in ActiveCampaign",
+  "nodes": [
+    {
+      "name": "ActiveCampaign Trigger",
+      "type": "n8n-nodes-base.activeCampaignTrigger",
+      "position": [
+        700,
+        250
+      ],
+      "parameters": {
+        "events": [
+          "account_add"
+        ],
+        "sources": [
+          "admin"
+        ]
+      },
+      "credentials": {
+        "activeCampaignApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

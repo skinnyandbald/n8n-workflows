@@ -1,0 +1,43 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using mailchimp, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "mailchimp"
+    ],
+    "suggested_filename": "comm_516_workflow_516_automate_mailchimp.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting mailchimp. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.552896",
+    "original_filename": "516_workflow_516.json"
+  },
+  "nodes": [
+    {
+      "name": "Mailchimp Trigger",
+      "type": "n8n-nodes-base.mailchimpTrigger",
+      "position": [
+        870,
+        370
+      ],
+      "parameters": {
+        "list": "0a5a4ca5de",
+        "events": [
+          "subscribe"
+        ],
+        "sources": [
+          "api",
+          "admin",
+          "user"
+        ]
+      },
+      "credentials": {
+        "mailchimpApi": "mailchimp_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_tasks data/processes using manual, asana, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_task",
+    "key_integrations": [
+      "manual",
+      "asana"
+    ],
+    "suggested_filename": "util_create_create_task_manual_asana.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, asana. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.415618",
+    "original_filename": "98_Create_a_new_task_in_Asana.json"
+  },
+  "id": "98",
+  "name": "Create a new task in Asana",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Asana",
+      "type": "n8n-nodes-base.asana",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "name": "",
+        "workspace": "",
+        "otherProperties": {}
+      },
+      "credentials": {
+        "asanaApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Asana",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

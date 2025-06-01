@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, redis, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "redis"
+    ],
+    "suggested_filename": "util_557_workflow_557_automate_manual_redis.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, redis. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.374809",
+    "original_filename": "557_workflow_557.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        270,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Redis",
+      "type": "n8n-nodes-base.redis",
+      "position": [
+        470,
+        320
+      ],
+      "parameters": {
+        "key": "hello",
+        "options": {},
+        "operation": "get"
+      },
+      "credentials": {
+        "redis": "redis-docker_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

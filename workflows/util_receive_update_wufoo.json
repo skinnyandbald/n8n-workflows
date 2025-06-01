@@ -1,0 +1,40 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using wufoo, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "wufoo"
+    ],
+    "suggested_filename": "util_receive_update_wufoo.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting wufoo. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.079601",
+    "original_filename": "78_Receive_updates_when_a_form_is_submitted_in_Wufoo.json"
+  },
+  "id": "78",
+  "name": "Receive updates when a form is submitted in Wufoo",
+  "nodes": [
+    {
+      "name": "Wufoo Trigger",
+      "type": "n8n-nodes-base.wufooTrigger",
+      "position": [
+        1290,
+        140
+      ],
+      "webhookId": "106376c5-b49c-412f-8463-4db23a23c057",
+      "parameters": {
+        "form": "n8n"
+      },
+      "credentials": {
+        "wufooApi": "wufoo"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

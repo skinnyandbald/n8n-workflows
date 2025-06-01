@@ -1,0 +1,123 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using manual, googlebooks, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "googlebooks"
+    ],
+    "suggested_filename": "util_volume_create_manual_googlebooks.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, googlebooks. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.005275",
+    "original_filename": "107_Get_a_volume_and_add_it_to_your_bookshelf.json"
+  },
+  "id": "107",
+  "name": "Get a volume and add it to your bookshelf",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Books",
+      "type": "n8n-nodes-base.googleBooks",
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "resource": "volume",
+        "volumeId": "XxUJ2U2FXtYC",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "googleBooksOAuth2Api": "google-books"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Books1",
+      "type": "n8n-nodes-base.googleBooks",
+      "position": [
+        660,
+        300
+      ],
+      "parameters": {
+        "shelfId": "2",
+        "resource": "bookshelfVolume",
+        "volumeId": "={{$node[\"Google Books\"].json[\"id\"]}}",
+        "operation": "add",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "googleBooksOAuth2Api": "google-books"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Books2",
+      "type": "n8n-nodes-base.googleBooks",
+      "position": [
+        860,
+        300
+      ],
+      "parameters": {
+        "shelfId": "={{$node[\"Google Books1\"].parameter[\"shelfId\"]}}",
+        "resource": "bookshelfVolume",
+        "myLibrary": true,
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "googleBooksOAuth2Api": "google-books"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Google Books": {
+      "main": [
+        [
+          {
+            "node": "Google Books1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Books1": {
+      "main": [
+        [
+          {
+            "node": "Google Books2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Google Books",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

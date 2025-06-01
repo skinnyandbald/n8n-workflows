@@ -1,0 +1,41 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using box, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "box"
+    ],
+    "suggested_filename": "util_560_workflow_560_automate_box.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting box. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.042364",
+    "original_filename": "560_workflow_560.json"
+  },
+  "nodes": [
+    {
+      "name": "Box Trigger",
+      "type": "n8n-nodes-base.boxTrigger",
+      "position": [
+        1027,
+        368
+      ],
+      "webhookId": "0e56bb0c-8e81-42de-a902-c0ab31834bd8",
+      "parameters": {
+        "events": [
+          "FOLDER.MOVED",
+          "FOLDER.DOWNLOADED"
+        ],
+        "targetId": "118847708963",
+        "targetType": "file"
+      },
+      "credentials": {
+        "boxOAuth2Api": "box_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

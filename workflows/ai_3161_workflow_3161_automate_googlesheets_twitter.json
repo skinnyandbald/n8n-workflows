@@ -1,0 +1,148 @@
+{
+  "documentation": {
+    "description": "AI workflow that automates data/processes using googlesheets, twitter, openai, triggered via manual",
+    "category": "AI",
+    "business_function": "automate",
+    "key_integrations": [
+      "googlesheets",
+      "twitter",
+      "openai"
+    ],
+    "suggested_filename": "ai_3161_workflow_3161_automate_googlesheets_twitter.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting googlesheets, twitter, openai. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 9,
+    "total_nodes": 5,
+    "metadata_added": "2025-06-01T14:03:45.757794",
+    "original_filename": "3161_workflow_3161.json"
+  },
+  "nodes": [
+    {
+      "name": "Get Content Ideas",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        200,
+        300
+      ],
+      "parameters": {
+        "range": "Sheet1!A:C",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID"
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": "YOUR_GOOGLE_SHEETS_CREDENTIALS"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Generate Post with OpenAI",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "model": "gpt-4",
+        "prompt": "Create a social media post for {{$node[\"Get Content Ideas\"].json[\"Platform\"]}} based on this idea: {{$node[\"Get Content Ideas\"].json[\"Idea\"]}}. Keep it engaging and concise."
+      },
+      "credentials": {
+        "openAIApi": "YOUR_OPENAI_CREDENTIALS"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Check Platform",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "{{$node[\"Get Content Ideas\"].json[\"Platform\"]}}",
+              "value2": "Twitter",
+              "operation": "equal"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Post to Twitter",
+      "type": "n8n-nodes-base.twitter",
+      "position": [
+        1000,
+        200
+      ],
+      "parameters": {
+        "text": "{{$node[\"Generate Post with OpenAI\"].json[\"text\"]}}"
+      },
+      "credentials": {
+        "twitterOAuth1Api": "YOUR_TWITTER_CREDENTIALS"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Update Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1200,
+        300
+      ],
+      "parameters": {
+        "range": "Sheet1!D:F",
+        "values": "Posted,{{$node[\"Generate Post with OpenAI\"].json[\"text\"]}},{{Date.now()}}",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "updateOperation": "append"
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": "YOUR_GOOGLE_SHEETS_CREDENTIALS"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Check Platform": {
+      "main": [
+        [
+          {
+            "node": "Post to Twitter",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Post to Twitter": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheet",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Content Ideas": {
+      "main": [
+        [
+          {
+            "node": "Generate Post with OpenAI",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Generate Post with OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Check Platform",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  }
+}

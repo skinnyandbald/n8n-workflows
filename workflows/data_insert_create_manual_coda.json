@@ -1,0 +1,103 @@
+{
+  "documentation": {
+    "description": "DATA workflow that creates data/processes using manual, coda, triggered via manual",
+    "category": "DATA",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "coda"
+    ],
+    "suggested_filename": "data_insert_create_manual_coda.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting manual, coda. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.465486",
+    "original_filename": "102_Insert_data_into_a_new_row_for_a_table_in_Coda.json"
+  },
+  "id": "102",
+  "name": "Insert data into a new row for a table in Coda",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Coda",
+      "type": "n8n-nodes-base.coda",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "docId": "",
+        "options": {},
+        "tableId": ""
+      },
+      "credentials": {
+        "codaApi": ""
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Column 1",
+              "value": "This is column 1 data"
+            },
+            {
+              "name": "Column 2",
+              "value": "This is column 2 data"
+            },
+            {
+              "name": "Column 3",
+              "value": "This is column 3 data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Coda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using mautic, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "mautic",
+      "manual"
+    ],
+    "suggested_filename": "util_549_workflow_549_automate_mautic_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting mautic, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.126782",
+    "original_filename": "549_workflow_549.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Mautic",
+      "type": "n8n-nodes-base.mautic",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "getAll",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "mauticOAuth2Api": "mautic_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Mautic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_tasks data/processes using manual, zendesk, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_task",
+    "key_integrations": [
+      "manual",
+      "zendesk"
+    ],
+    "suggested_filename": "util_create_create_task_manual_zendesk.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, zendesk. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.228720",
+    "original_filename": "123_Create_a_ticket_in_Zendesk.json"
+  },
+  "id": "123",
+  "name": "Create a ticket in Zendesk",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Zendesk",
+      "type": "n8n-nodes-base.zendesk",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "description": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "zendeskApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Zendesk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

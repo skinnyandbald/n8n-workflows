@@ -1,0 +1,66 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using unleashedsoftware, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "unleashedsoftware",
+      "manual"
+    ],
+    "suggested_filename": "util_automate_unleashedsoftware_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting unleashedsoftware, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.437626",
+    "original_filename": "641_.json"
+  },
+  "name": "",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        390,
+        220
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Unleashed Software",
+      "type": "n8n-nodes-base.unleashedSoftware",
+      "position": [
+        600,
+        220
+      ],
+      "parameters": {
+        "filters": {
+          "orderStatus": [
+            "Completed"
+          ]
+        },
+        "returnAll": true
+      },
+      "credentials": {
+        "unleashedSoftwareApi": "unleashed"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Unleashed Software",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

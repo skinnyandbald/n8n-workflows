@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using xero, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "xero",
+      "manual"
+    ],
+    "suggested_filename": "util_543_workflow_543_automate_xero_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting xero, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.287043",
+    "original_filename": "543_workflow_543.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Xero",
+      "type": "n8n-nodes-base.xero",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "getAll",
+        "organizationId": "ab7e9014-5d01-418f-a64c-dbb6bf5ba2ea"
+      },
+      "credentials": {
+        "xeroOAuth2Api": "n8n_xero"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Xero",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

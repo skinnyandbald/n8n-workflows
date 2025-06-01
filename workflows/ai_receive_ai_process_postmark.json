@@ -1,0 +1,50 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using postmark, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "postmark"
+    ],
+    "suggested_filename": "ai_receive_ai_process_postmark.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting postmark. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.706105",
+    "original_filename": "48_Receive_updates_when_an_email_is_bounced_or_opened.json"
+  },
+  "id": "48",
+  "name": "Receive updates when an email is bounced or opened",
+  "nodes": [
+    {
+      "name": "Postmark Trigger",
+      "type": "n8n-nodes-base.postmarkTrigger",
+      "position": [
+        690,
+        260
+      ],
+      "webhookId": "1422ac7a-62ba-4f7c-8e22-4e8ecb4950ce",
+      "parameters": {
+        "events": [
+          "bounce",
+          "open"
+        ],
+        "includeContent": true
+      },
+      "credentials": {
+        "postmarkApi": "postmark"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Postmark Trigger": {
+      "main": [
+        []
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using sse, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "sse"
+    ],
+    "suggested_filename": "util_automate_sse.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting sse. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.442966",
+    "original_filename": "639_.json"
+  },
+  "name": "",
+  "nodes": [
+    {
+      "name": "SSE Trigger",
+      "type": "n8n-nodes-base.sseTrigger",
+      "position": [
+        850,
+        420
+      ],
+      "parameters": {
+        "url": "https://n8n.io"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

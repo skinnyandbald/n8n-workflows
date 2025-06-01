@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using webhook, posthog, triggered via webhook",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "webhook",
+      "posthog"
+    ],
+    "suggested_filename": "util_968_workflow_968_automate_webhook_posthog_webhook.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting webhook, posthog. This is a streamlined workflow for efficient automation",
+    "trigger_type": "webhook",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.782519",
+    "original_filename": "968_workflow_968.json"
+  },
+  "nodes": [
+    {
+      "name": "PostHog",
+      "type": "n8n-nodes-base.postHog",
+      "position": [
+        640,
+        280
+      ],
+      "parameters": {
+        "eventName": "={{$json[\"query\"][\"event\"]}}",
+        "distinctId": "n8n",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "postHogApi": "PostHog Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        440,
+        280
+      ],
+      "webhookId": "f6d0071e-3cf9-49fd-8bbd-afdbea6b0c67",
+      "parameters": {
+        "path": "f6d0071e-3cf9-49fd-8bbd-afdbea6b0c67",
+        "options": {}
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "PostHog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

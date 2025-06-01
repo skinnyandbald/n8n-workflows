@@ -1,0 +1,70 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using paddle, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "paddle",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_paddle_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting paddle, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.956926",
+    "original_filename": "54_Create_a_coupon_on_Paddle.json"
+  },
+  "id": "54",
+  "name": "Create a coupon on Paddle",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        550,
+        260
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Paddle",
+      "type": "n8n-nodes-base.paddle",
+      "position": [
+        750,
+        260
+      ],
+      "parameters": {
+        "discountAmount": 2,
+        "additionalFields": {
+          "couponCode": "n8n-docs"
+        }
+      },
+      "credentials": {
+        "paddleApi": "paddle"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Paddle": {
+      "main": [
+        []
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Paddle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

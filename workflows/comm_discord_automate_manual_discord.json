@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using manual, discord, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "discord"
+    ],
+    "suggested_filename": "comm_discord_automate_manual_discord.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting manual, discord. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.240311",
+    "original_filename": "2_Discord_Intro.json"
+  },
+  "id": "2",
+  "name": "Discord Intro",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        510,
+        330
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Discord",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        800,
+        330
+      ],
+      "parameters": {
+        "text": "Hello World!",
+        "webhookUri": "https://discordapp.com/api/webhooks/XXX/XXX"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

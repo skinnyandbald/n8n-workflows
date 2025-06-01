@@ -1,0 +1,125 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using manual, egoi, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "egoi"
+    ],
+    "suggested_filename": "util_create_create_manual_egoi.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, egoi. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.199286",
+    "original_filename": "189_Create,_update,_and_get_a_subscriber_using_the_e-goi_node.json"
+  },
+  "id": "189",
+  "name": "Create, update, and get a subscriber using the e-goi node",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        270,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "e-goi",
+      "type": "n8n-nodes-base.egoi",
+      "position": [
+        470,
+        300
+      ],
+      "parameters": {
+        "list": 1,
+        "email": "nathan@testmail.com",
+        "additionalFields": {
+          "first_name": "Nathan"
+        }
+      },
+      "credentials": {
+        "egoiApi": "e-goi Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "e-goi1",
+      "type": "n8n-nodes-base.egoi",
+      "position": [
+        670,
+        300
+      ],
+      "parameters": {
+        "list": "={{$node[\"e-goi\"].parameter[\"list\"]}}",
+        "contactId": "={{$node[\"e-goi\"].json[\"base\"][\"contact_id\"]}}",
+        "operation": "update",
+        "updateFields": {
+          "first_name": "Nat"
+        }
+      },
+      "credentials": {
+        "egoiApi": "e-goi Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "e-goi2",
+      "type": "n8n-nodes-base.egoi",
+      "position": [
+        870,
+        300
+      ],
+      "parameters": {
+        "list": "={{$node[\"e-goi\"].parameter[\"list\"]}}",
+        "contactId": "={{$node[\"e-goi1\"].json[\"base\"][\"contact_id\"]}}",
+        "operation": "get"
+      },
+      "credentials": {
+        "egoiApi": "e-goi Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "e-goi": {
+      "main": [
+        [
+          {
+            "node": "e-goi1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e-goi1": {
+      "main": [
+        [
+          {
+            "node": "e-goi2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "e-goi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

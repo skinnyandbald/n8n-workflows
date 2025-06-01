@@ -1,0 +1,109 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using googlesheets, cron, triggered via cron",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "googlesheets",
+      "cron"
+    ],
+    "suggested_filename": "data_6_workflow_6_automate_googlesheets_cron_cron.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting googlesheets, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:45.801214",
+    "original_filename": "6_workflow_6.json"
+  },
+  "nodes": [
+    {
+      "name": "Read Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "range": "Data!A:G",
+        "rawData": true
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        500,
+        300
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 */2 * * * *"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Sheet 2",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        900,
+        400
+      ],
+      "parameters": {
+        "range": "={{$node[\"Read Sheet\"].parameter[\"range\"]}}",
+        "rawData": true,
+        "operation": "update"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Sheet 1",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        900,
+        200
+      ],
+      "parameters": {
+        "range": "={{$node[\"Read Sheet\"].parameter[\"range\"]}}",
+        "rawData": true,
+        "operation": "update"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Read Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Sheet": {
+      "main": [
+        [
+          {
+            "node": "Write Sheet 2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Sheet 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

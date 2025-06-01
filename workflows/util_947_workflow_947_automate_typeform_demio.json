@@ -1,0 +1,68 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using typeform, demio, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "typeform",
+      "demio"
+    ],
+    "suggested_filename": "util_947_workflow_947_automate_typeform_demio.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting typeform, demio. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.213964",
+    "original_filename": "947_workflow_947.json"
+  },
+  "nodes": [
+    {
+      "name": "Typeform Trigger",
+      "type": "n8n-nodes-base.typeformTrigger",
+      "position": [
+        510,
+        260
+      ],
+      "webhookId": "1cbca674-78fb-402e-b225-2aa6f92b5338",
+      "parameters": {
+        "formId": ""
+      },
+      "credentials": {
+        "typeformApi": "Typeform Burner Account"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Demio",
+      "type": "n8n-nodes-base.demio",
+      "position": [
+        710,
+        260
+      ],
+      "parameters": {
+        "email": "={{$json[\"What's your email address?\"]}}",
+        "eventId": 357191,
+        "firstName": "={{$json[\"Let's start with your name.\"]}}",
+        "operation": "register",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "demioApi": "Demio API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Typeform Trigger": {
+      "main": [
+        [
+          {
+            "node": "Demio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

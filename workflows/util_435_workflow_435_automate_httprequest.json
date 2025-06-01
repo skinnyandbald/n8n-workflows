@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using httprequest, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest"
+    ],
+    "suggested_filename": "util_435_workflow_435_automate_httprequest.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting httprequest. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.042081",
+    "original_filename": "435_workflow_435.json"
+  },
+  "nodes": [
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.digitalocean.com/v2/droplets",
+        "options": {
+          "bodyContentType": "json"
+        },
+        "requestMethod": "POST",
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "name",
+              "value": "API-creation-test"
+            },
+            {
+              "name": "region",
+              "value": "blr1"
+            },
+            {
+              "name": "size",
+              "value": "s-1vcpu-1gb"
+            },
+            {
+              "name": "image",
+              "value": "ubuntu-20-04-x64"
+            }
+          ]
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {your_personal_access_token}"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

@@ -1,0 +1,85 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using writebinaryfile, httprequest, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "writebinaryfile",
+      "httprequest",
+      "manual"
+    ],
+    "suggested_filename": "util_write_automate_writebinaryfile_httprequest.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting writebinaryfile, httprequest, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.920624",
+    "original_filename": "160_Write_a_file_to_the_host_machine.json"
+  },
+  "id": "160",
+  "name": "Write a file to the host machine",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "url": "https://docs.n8n.io/assets/img/n8n-logo.png",
+        "options": {},
+        "responseFormat": "file"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "position": [
+        660,
+        300
+      ],
+      "parameters": {
+        "fileName": "/Users/tanay/Desktop/n8n-logo.png"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

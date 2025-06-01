@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using eventbrite, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "eventbrite"
+    ],
+    "suggested_filename": "util_538_workflow_538_automate_eventbrite.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting eventbrite. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.106982",
+    "original_filename": "538_workflow_538.json"
+  },
+  "nodes": [
+    {
+      "name": "Eventbrite Trigger",
+      "type": "n8n-nodes-base.eventbriteTrigger",
+      "position": [
+        880,
+        400
+      ],
+      "webhookId": "90ebf00a-536b-4553-b879-2e2c3e35bd60",
+      "parameters": {
+        "event": "114095913950",
+        "actions": [
+          "order.placed",
+          "order.updated",
+          "order.refunded"
+        ],
+        "organization": "461207981776"
+      },
+      "credentials": {
+        "eventbriteApi": "eventbrite api"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

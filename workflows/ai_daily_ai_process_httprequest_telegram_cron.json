@@ -1,0 +1,96 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using httprequest, telegram, cron, triggered via cron",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "httprequest",
+      "telegram",
+      "cron"
+    ],
+    "suggested_filename": "ai_daily_ai_process_httprequest_telegram_cron.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting httprequest, telegram, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:45.852250",
+    "original_filename": "2_Daily_Text_Affirmations.json"
+  },
+  "id": "2",
+  "name": "Daily Text Affirmations",
+  "nodes": [
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        350,
+        380
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        760,
+        380
+      ],
+      "parameters": {
+        "url": "https://affirmations.dev",
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        1140,
+        380
+      ],
+      "parameters": {
+        "text": "=Hey Daniel, here's your daily affirmation...\n\n{{$node[\"HTTP Request\"].json[\"affirmation\"]}}",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": "Telegram Token"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

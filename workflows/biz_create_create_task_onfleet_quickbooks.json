@@ -1,0 +1,70 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that create_tasks data/processes using onfleet, quickbooks, triggered via manual",
+    "category": "BIZ",
+    "business_function": "create_task",
+    "key_integrations": [
+      "onfleet",
+      "quickbooks"
+    ],
+    "suggested_filename": "biz_create_create_task_onfleet_quickbooks.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting onfleet, quickbooks. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.458680",
+    "original_filename": "1546_Create_a_QuickBooks_invoice_on_a_new_Onfleet_Task_creation.json"
+  },
+  "name": "Create a QuickBooks invoice on a new Onfleet Task creation",
+  "nodes": [
+    {
+      "name": "Onfleet Trigger",
+      "type": "n8n-nodes-base.onfleetTrigger",
+      "position": [
+        460,
+        300
+      ],
+      "webhookId": "6d6a2bee-f83e-4ebd-a1d5-8708c34393dc",
+      "parameters": {
+        "triggerOn": "taskCreated",
+        "additionalFields": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "QuickBooks Online",
+      "type": "n8n-nodes-base.quickbooks",
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "Line": [],
+        "resource": "invoice",
+        "operation": "create",
+        "additionalFields": {
+          "Balance": 0,
+          "TxnDate": "",
+          "ShipAddr": "",
+          "BillEmail": ""
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Onfleet Trigger": {
+      "main": [
+        [
+          {
+            "node": "QuickBooks Online",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

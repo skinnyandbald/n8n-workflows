@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_tasks data/processes using googletasks, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_task",
+    "key_integrations": [
+      "googletasks",
+      "manual"
+    ],
+    "suggested_filename": "util_task_create_task_googletasks_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting googletasks, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.928897",
+    "original_filename": "2_Add_task_to_tasklist.json"
+  },
+  "id": "2",
+  "name": "Add task to tasklist",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        500,
+        310
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Tasks",
+      "type": "n8n-nodes-base.googleTasks",
+      "position": [
+        920,
+        310
+      ],
+      "parameters": {
+        "task": "MDY3OTAyNjUyMDk5NDY5ODIzMzM6MDow",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "googleTasksOAuth2Api": "shraddha"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Google Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

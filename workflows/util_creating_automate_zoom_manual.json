@@ -1,0 +1,69 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using zoom, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "zoom",
+      "manual"
+    ],
+    "suggested_filename": "util_creating_automate_zoom_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting zoom, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.330879",
+    "original_filename": "83_Creating_a_meeting_with_the_Zoom_node.json"
+  },
+  "id": "83",
+  "name": "Creating a meeting with the Zoom node",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Zoom",
+      "type": "n8n-nodes-base.zoom",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "topic": "Something",
+        "authentication": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "zoomOAuth2Api": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Zoom": {
+      "main": [
+        []
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Zoom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

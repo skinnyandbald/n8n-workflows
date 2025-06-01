@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "ANALYTICS workflow that monitors data/processes using segment, manual, triggered via manual",
+    "category": "ANALYTICS",
+    "business_function": "monitor",
+    "key_integrations": [
+      "segment",
+      "manual"
+    ],
+    "suggested_filename": "analytics_track_monitor_segment_manual.json",
+    "business_value": "Automates data collection and analysis for better business insights by connecting segment, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.917139",
+    "original_filename": "122_Track_an_event_in_Segment.json"
+  },
+  "id": "122",
+  "name": "Track an event in Segment",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Segment",
+      "type": "n8n-nodes-base.segment",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "event": "",
+        "resource": "track"
+      },
+      "credentials": {
+        "segmentApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Segment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

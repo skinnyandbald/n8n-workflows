@@ -1,0 +1,99 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using error, gmail, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "error",
+      "gmail"
+    ],
+    "suggested_filename": "comm_2160_workflow_2160_automate_error_gmail.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting error, gmail. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 7,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.556197",
+    "original_filename": "2160_workflow_2160.json"
+  },
+  "nodes": [
+    {
+      "id": "dee0969b-e780-400c-a8d2-383a392b9432",
+      "name": "On Error",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        880,
+        900
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "id": "018f4497-2a68-4de7-a59a-b6714d9211af",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        800,
+        700
+      ],
+      "parameters": {
+        "color": 5,
+        "width": 424.4907862645661,
+        "height": 154.7766688696994,
+        "content": "### 👨‍🎤 Setup\n1. Add your Gmail creds\n2. Add your target email\n2. Add this error workflow to other workflows\nhttps://docs.n8n.io/flow-logic/error-handling/#create-and-set-an-error-workflow"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "b5d560c0-1de1-4e6c-be4d-0fef1dd42e9e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        1080
+      ],
+      "parameters": {
+        "width": 241,
+        "height": 80,
+        "content": "### 👆🏽 Set target email here"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "f1a73854-5b24-407e-9584-0448ae66f7a0",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1120,
+        900
+      ],
+      "parameters": {
+        "sendTo": "SET YOUR EMAIL HERE",
+        "message": "=⚠️ Workflow `{{$json[\"workflow\"][\"name\"]}}` failed to run!\nYou can find the execution here: {{ $json.execution.url }}\n\nerror message from node {{ $json.execution.lastNodeExecuted }}: {{ $json.execution.error.message }}\n\n {{ $json.execution.error.stack }}",
+        "options": {},
+        "subject": "=🚨 Error in workflow: {{ $json.workflow.name }}",
+        "emailType": "text"
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8",
+          "name": "Work Gmail account"
+        }
+      },
+      "typeVersion": 2.1
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On Error": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

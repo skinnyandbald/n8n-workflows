@@ -1,0 +1,223 @@
+{
+  "documentation": {
+    "description": "COMM workflow that creates data/processes using matrix, manual, triggered via manual",
+    "category": "COMM",
+    "business_function": "create",
+    "key_integrations": [
+      "matrix",
+      "manual"
+    ],
+    "suggested_filename": "comm_create_create_matrix_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting matrix, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 12,
+    "total_nodes": 8,
+    "metadata_added": "2025-06-01T14:03:46.425567",
+    "original_filename": "83_Create_a_room,_invite_members_from_a_different_room,_and_send_a_message_in_the_room_we_created.json"
+  },
+  "id": "83",
+  "name": "Create a room, invite members from a different room, and send a message in the room we created",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Matrix",
+      "type": "n8n-nodes-base.matrix",
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "resource": "room",
+        "roomName": "n8n",
+        "roomAlias": "discussion-n8n"
+      },
+      "credentials": {
+        "matrixApi": "matrix"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        840,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$node[\"Matrix1\"].json[\"user_id\"]}}",
+              "value2": "={{$node[\"Matrix2\"].json[\"user_id\"]}}",
+              "operation": "notEqual"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Matrix3",
+      "type": "n8n-nodes-base.matrix",
+      "position": [
+        990,
+        200
+      ],
+      "parameters": {
+        "roomId": "={{$node[\"Matrix\"].json[\"room_id\"]}}",
+        "userId": "={{$node[\"IF\"].json[\"user_id\"]}}",
+        "resource": "room",
+        "operation": "invite"
+      },
+      "credentials": {
+        "matrixApi": "matrix"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Matrix4",
+      "type": "n8n-nodes-base.matrix",
+      "position": [
+        1140,
+        200
+      ],
+      "parameters": {
+        "text": "Welcome to n8n!",
+        "roomId": "={{$node[\"Matrix\"].json[\"room_id\"]}}"
+      },
+      "credentials": {
+        "matrixApi": "matrix"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        990,
+        400
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Matrix1",
+      "type": "n8n-nodes-base.matrix",
+      "position": [
+        540,
+        300
+      ],
+      "parameters": {
+        "resource": "account"
+      },
+      "credentials": {
+        "matrixApi": "matrix"
+      },
+      "typeVersion": 1,
+      "continueOnFail": true
+    },
+    {
+      "name": "Matrix2",
+      "type": "n8n-nodes-base.matrix",
+      "position": [
+        690,
+        300
+      ],
+      "parameters": {
+        "roomId": "!cMUIsUgevrhCoeMkSG:matrix.org",
+        "filters": {},
+        "resource": "roomMember"
+      },
+      "credentials": {
+        "matrixApi": "matrix"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Matrix3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matrix": {
+      "main": [
+        [
+          {
+            "node": "Matrix1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matrix1": {
+      "main": [
+        [
+          {
+            "node": "Matrix2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matrix2": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matrix3": {
+      "main": [
+        [
+          {
+            "node": "Matrix4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

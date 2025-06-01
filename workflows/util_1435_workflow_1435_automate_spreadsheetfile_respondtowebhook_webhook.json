@@ -1,0 +1,121 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using spreadsheetfile, respondtowebhook, webhook, triggered via webhook",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "spreadsheetfile",
+      "respondtowebhook",
+      "webhook"
+    ],
+    "suggested_filename": "util_1435_workflow_1435_automate_spreadsheetfile_respondtowebhook_webhook.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting spreadsheetfile, respondtowebhook, webhook. This is a streamlined workflow for efficient automation",
+    "trigger_type": "webhook",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.064227",
+    "original_filename": "1435_workflow_1435.json"
+  },
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        340,
+        0
+      ],
+      "webhookId": "c1616754-4dec-4b00-a8b5-d1cb5f75bf11",
+      "parameters": {
+        "path": "c1616754-4dec-4b00-a8b5-d1cb5f75bf11",
+        "options": {},
+        "httpMethod": "POST",
+        "responseMode": "responseNode"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "position": [
+        560,
+        0
+      ],
+      "parameters": {
+        "options": {},
+        "fieldToSplitOut": "=body"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "position": [
+        780,
+        0
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "toFile",
+        "fileFormat": "xlsx"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        1020,
+        0
+      ],
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "content-disposition",
+                "value": "=attachment; filename=\"{{$node[\"Webhook\"].json[\"query\"][\"filename\"]? $node[\"Webhook\"].json[\"query\"][\"filename\"] : \"Export\"}}.xlsx\""
+              }
+            ]
+          }
+        },
+        "respondWith": "binary"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Item Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

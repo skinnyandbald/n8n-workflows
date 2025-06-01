@@ -1,0 +1,98 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using openweathermap, line, cron, triggered via cron",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "openweathermap",
+      "line",
+      "cron"
+    ],
+    "suggested_filename": "ai_send_ai_process_openweathermap_line_cron.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting openweathermap, line, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.820161",
+    "original_filename": "114_Send_daily_weather_updates_via_a_message_in_Line.json"
+  },
+  "id": "114",
+  "name": "Send daily weather updates via a message in Line",
+  "nodes": [
+    {
+      "name": "Line",
+      "type": "n8n-nodes-base.line",
+      "position": [
+        890,
+        380
+      ],
+      "parameters": {
+        "message": "=Hey! The temperature outside is {{$node[\"OpenWeatherMap\"].json[\"main\"][\"temp\"]}}°C.",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "lineNotifyOAuth2Api": "line-credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        490,
+        380
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "OpenWeatherMap",
+      "type": "n8n-nodes-base.openWeatherMap",
+      "position": [
+        690,
+        380
+      ],
+      "parameters": {
+        "cityName": "berlin"
+      },
+      "credentials": {
+        "openWeatherMapApi": "owm"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Line",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

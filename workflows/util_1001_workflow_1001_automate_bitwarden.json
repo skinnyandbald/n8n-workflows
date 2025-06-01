@@ -1,0 +1,124 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using bitwarden, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "bitwarden"
+    ],
+    "suggested_filename": "util_1001_workflow_1001_automate_bitwarden.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting bitwarden. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.831031",
+    "original_filename": "1001_workflow_1001.json"
+  },
+  "nodes": [
+    {
+      "name": "Bitwarden",
+      "type": "n8n-nodes-base.bitwarden",
+      "position": [
+        470,
+        320
+      ],
+      "parameters": {
+        "name": "documentation",
+        "resource": "group",
+        "operation": "create",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "bitwardenApi": "Bitwarden API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Bitwarden1",
+      "type": "n8n-nodes-base.bitwarden",
+      "position": [
+        670,
+        320
+      ],
+      "parameters": {
+        "resource": "member",
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "credentials": {
+        "bitwardenApi": "Bitwarden API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Bitwarden2",
+      "type": "n8n-nodes-base.bitwarden",
+      "position": [
+        870,
+        320
+      ],
+      "parameters": {
+        "groupId": "={{$node[\"Bitwarden\"].json[\"id\"]}}",
+        "resource": "group",
+        "memberIds": "={{$json[\"id\"]}}",
+        "operation": "updateMembers"
+      },
+      "credentials": {
+        "bitwardenApi": "Bitwarden API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Bitwarden3",
+      "type": "n8n-nodes-base.bitwarden",
+      "position": [
+        1070,
+        320
+      ],
+      "parameters": {
+        "groupId": "={{$node[\"Bitwarden\"].json[\"id\"]}}",
+        "resource": "group",
+        "operation": "getMembers"
+      },
+      "credentials": {
+        "bitwardenApi": "Bitwarden API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Bitwarden": {
+      "main": [
+        [
+          {
+            "node": "Bitwarden1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bitwarden1": {
+      "main": [
+        [
+          {
+            "node": "Bitwarden2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bitwarden2": {
+      "main": [
+        [
+          {
+            "node": "Bitwarden3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that updates data/processes using paypal, triggered via manual",
+    "category": "BIZ",
+    "business_function": "update",
+    "key_integrations": [
+      "paypal"
+    ],
+    "suggested_filename": "biz_receive_update_paypal.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting paypal. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:45.966795",
+    "original_filename": "46_Receive_updates_when_a_billing_plan_is_activated_in_PayPal.json"
+  },
+  "id": "46",
+  "name": "Receive updates when a billing plan is activated in PayPal",
+  "nodes": [
+    {
+      "name": "PayPal Trigger",
+      "type": "n8n-nodes-base.payPalTrigger",
+      "position": [
+        1130,
+        620
+      ],
+      "webhookId": "242a300e-b5a0-45a2-87bc-40def6fe56ef",
+      "parameters": {
+        "events": [
+          "BILLING.PLAN.ACTIVATED"
+        ]
+      },
+      "credentials": {
+        "payPalApi": "paypal"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

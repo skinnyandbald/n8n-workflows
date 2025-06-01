@@ -1,0 +1,59 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using cockpit, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "cockpit",
+      "manual"
+    ],
+    "suggested_filename": "util_518_workflow_518_automate_cockpit_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting cockpit, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.823122",
+    "original_filename": "518_workflow_518.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        750,
+        360
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Cockpit",
+      "type": "n8n-nodes-base.cockpit",
+      "position": [
+        950,
+        360
+      ],
+      "parameters": {
+        "options": {},
+        "collection": "samplecollection"
+      },
+      "credentials": {
+        "cockpitApi": "cockpit api"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Cockpit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

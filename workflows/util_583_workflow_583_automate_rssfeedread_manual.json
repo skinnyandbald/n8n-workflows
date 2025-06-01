@@ -1,0 +1,55 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using rssfeedread, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "rssfeedread",
+      "manual"
+    ],
+    "suggested_filename": "util_583_workflow_583_automate_rssfeedread_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting rssfeedread, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.398404",
+    "original_filename": "583_workflow_583.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        260,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "RSS Feed Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        460,
+        320
+      ],
+      "parameters": {
+        "url": "https://failedmachine.com/rss/"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "RSS Feed Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

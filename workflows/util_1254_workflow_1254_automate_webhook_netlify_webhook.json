@@ -1,0 +1,67 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using webhook, netlify, triggered via webhook",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "webhook",
+      "netlify"
+    ],
+    "suggested_filename": "util_1254_workflow_1254_automate_webhook_netlify_webhook.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting webhook, netlify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "webhook",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.867766",
+    "original_filename": "1254_workflow_1254.json"
+  },
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        450,
+        300
+      ],
+      "webhookId": "0d36a8db-0177-4501-9f7a-e46b6829d07a",
+      "parameters": {
+        "path": "0d36a8db-0177-4501-9f7a-e46b6829d07a",
+        "options": {},
+        "httpMethod": "POST"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Netlify",
+      "type": "n8n-nodes-base.netlify",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "siteId": "5e15e032-9345-41b8-a98f-509e545f061c",
+        "operation": "create",
+        "additionalFields": {
+          "title": "={{$json[\"body\"][\"data\"][\"title\"]}}"
+        }
+      },
+      "credentials": {
+        "netlifyApi": "Netlify account"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Netlify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using writebinaryfile, movebinarydata, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "writebinaryfile",
+      "movebinarydata",
+      "manual"
+    ],
+    "suggested_filename": "util_standup_automate_writebinaryfile_movebinarydata.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting writebinaryfile, movebinarydata, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.312784",
+    "original_filename": "113_Standup_Bot_-_Override_Config.json"
+  },
+  "id": 113,
+  "name": "Standup Bot - Override Config",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {
+        "fileName": "/home/node/.n8n/standup-bot-config.json"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Move Binary Data",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "position": [
+        420,
+        300
+      ],
+      "parameters": {
+        "mode": "jsonToBinary",
+        "options": {
+          "encoding": "utf8",
+          "fileName": "standup-bot-config.json"
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Move Binary Data": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Move Binary Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

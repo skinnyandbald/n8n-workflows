@@ -1,0 +1,37 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using emailreadimap, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "emailreadimap"
+    ],
+    "suggested_filename": "util_587_workflow_587_automate_emailreadimap.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting emailreadimap. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.388553",
+    "original_filename": "587_workflow_587.json"
+  },
+  "nodes": [
+    {
+      "name": "IMAP Email",
+      "type": "n8n-nodes-base.emailReadImap",
+      "position": [
+        760,
+        400
+      ],
+      "parameters": {
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "credentials": {
+        "imap": "imap_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

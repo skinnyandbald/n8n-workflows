@@ -1,0 +1,107 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using writebinaryfile, httprequest, manual, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "writebinaryfile",
+      "httprequest",
+      "manual"
+    ],
+    "suggested_filename": "ai_store_ai_process_writebinaryfile_httprequest.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting writebinaryfile, httprequest, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.207524",
+    "original_filename": "652_Store_the_data_received_from_the_CocktailDB_API_in_JSON.json"
+  },
+  "name": "Store the data received from the CocktailDB API in JSON",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "url": "https://www.thecocktaildb.com/api/json/v1/1/random.php",
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Move Binary Data",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "position": [
+        550,
+        300
+      ],
+      "parameters": {
+        "mode": "jsonToBinary",
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "fileName": "cocktail.json"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Move Binary Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Binary Data": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

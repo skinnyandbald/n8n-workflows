@@ -1,0 +1,36 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using invoiceninja, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "invoiceninja"
+    ],
+    "suggested_filename": "util_535_workflow_535_automate_invoiceninja.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting invoiceninja. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.053703",
+    "original_filename": "535_workflow_535.json"
+  },
+  "nodes": [
+    {
+      "name": "Invoice Ninja Trigger",
+      "type": "n8n-nodes-base.invoiceNinjaTrigger",
+      "position": [
+        890,
+        400
+      ],
+      "webhookId": "97be21b3-ebf5-48cf-b291-5d954657a544",
+      "parameters": {
+        "event": "create_invoice"
+      },
+      "credentials": {
+        "invoiceNinjaApi": "invoice_ninja_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

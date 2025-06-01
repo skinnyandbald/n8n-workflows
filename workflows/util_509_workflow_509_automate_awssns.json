@@ -1,0 +1,35 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awssns, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awssns"
+    ],
+    "suggested_filename": "util_509_workflow_509_automate_awssns.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awssns. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.927805",
+    "original_filename": "509_workflow_509.json"
+  },
+  "nodes": [
+    {
+      "name": "AWS-SNS-Trigger",
+      "type": "n8n-nodes-base.awsSnsTrigger",
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "topic": "arn:aws:sns:ap-south-1:100558637562:n8n-rocks"
+      },
+      "credentials": {
+        "aws": "amudhan-aws"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

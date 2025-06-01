@@ -1,0 +1,66 @@
+{
+  "documentation": {
+    "description": "MARKETING workflow that automates data/processes using activecampaign, manual, triggered via manual",
+    "category": "MARKETING",
+    "business_function": "automate",
+    "key_integrations": [
+      "activecampaign",
+      "manual"
+    ],
+    "suggested_filename": "marketing_automate_activecampaign_manual.json",
+    "business_value": "Automates marketing campaigns and lead management processes by connecting activecampaign, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.002988",
+    "original_filename": "412_.json"
+  },
+  "name": "",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        600,
+        250
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "ActiveCampaign",
+      "type": "n8n-nodes-base.activeCampaign",
+      "position": [
+        800,
+        250
+      ],
+      "parameters": {
+        "email": "",
+        "updateIfExists": true,
+        "additionalFields": {
+          "lastName": "",
+          "firstName": ""
+        }
+      },
+      "credentials": {
+        "activeCampaignApi": "ActiveCampaign"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "ActiveCampaign",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

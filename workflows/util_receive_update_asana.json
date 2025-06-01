@@ -1,0 +1,41 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using asana, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "asana"
+    ],
+    "suggested_filename": "util_receive_update_asana.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting asana. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:45.831494",
+    "original_filename": "47_Receive_updates_when_an_event_occurs_in_Asana.json"
+  },
+  "id": "47",
+  "name": "Receive updates when an event occurs in Asana",
+  "nodes": [
+    {
+      "name": "Asana-Trigger",
+      "type": "n8n-nodes-base.asanaTrigger",
+      "position": [
+        1490,
+        860
+      ],
+      "webhookId": "0de3b493-efb6-472c-9deb-80d28c89d28d",
+      "parameters": {
+        "resource": "Tweets",
+        "workspace": "Engineering"
+      },
+      "credentials": {
+        "asanaApi": "asana"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

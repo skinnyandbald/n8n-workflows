@@ -1,0 +1,61 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, mandrill, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "mandrill"
+    ],
+    "suggested_filename": "util_571_workflow_571_automate_manual_mandrill.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, mandrill. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.945728",
+    "original_filename": "571_workflow_571.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Mandrill",
+      "type": "n8n-nodes-base.mandrill",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "options": {},
+        "toEmail": "user@example.com",
+        "template": "welcomeemailv2",
+        "fromEmail": "example@yourdomain.com"
+      },
+      "credentials": {
+        "mandrillApi": "mandrill_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Mandrill",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

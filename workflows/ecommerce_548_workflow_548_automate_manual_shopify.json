@@ -1,0 +1,59 @@
+{
+  "documentation": {
+    "description": "ECOMMERCE workflow that automates data/processes using manual, shopify, triggered via manual",
+    "category": "ECOMMERCE",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "shopify"
+    ],
+    "suggested_filename": "ecommerce_548_workflow_548_automate_manual_shopify.json",
+    "business_value": "Streamlines e-commerce operations from order processing to customer management by connecting manual, shopify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.038897",
+    "original_filename": "548_workflow_548.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        230,
+        310
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Shopify",
+      "type": "n8n-nodes-base.shopify",
+      "position": [
+        430,
+        310
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "getAll"
+      },
+      "credentials": {
+        "shopifyApi": "shopify_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Shopify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using readbinaryfiles, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "readbinaryfiles",
+      "manual"
+    ],
+    "suggested_filename": "util_578_workflow_578_automate_readbinaryfiles_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting readbinaryfiles, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.384848",
+    "original_filename": "578_workflow_578.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        270,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Read Binary Files",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "position": [
+        470,
+        320
+      ],
+      "parameters": {
+        "fileSelector": "/data/lol/*.jpg"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Read Binary Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

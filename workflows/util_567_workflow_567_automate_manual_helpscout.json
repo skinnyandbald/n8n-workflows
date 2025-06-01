@@ -1,0 +1,59 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, helpscout, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "helpscout"
+    ],
+    "suggested_filename": "util_567_workflow_567_automate_manual_helpscout.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, helpscout. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.633327",
+    "original_filename": "567_workflow_567.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "HelpScout",
+      "type": "n8n-nodes-base.helpScout",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "resource": "mailbox",
+        "operation": "getAll"
+      },
+      "credentials": {
+        "helpScoutOAuth2Api": "helpscout_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HelpScout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

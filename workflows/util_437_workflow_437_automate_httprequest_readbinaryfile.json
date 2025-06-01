@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using httprequest, readbinaryfile, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest",
+      "readbinaryfile"
+    ],
+    "suggested_filename": "util_437_workflow_437_automate_httprequest_readbinaryfile.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting httprequest, readbinaryfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.099133",
+    "original_filename": "437_workflow_437.json"
+  },
+  "nodes": [
+    {
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "filePath": "/data/demo1.wav"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.wit.ai/speech?v=20200513",
+        "options": {
+          "bodyContentType": "raw"
+        },
+        "requestMethod": "POST",
+        "jsonParameters": true,
+        "sendBinaryData": true,
+        "headerParametersJson": "={{JSON.parse('{\"Authorization\":\"Bearer {your_token_goes_here}\", \"Content-Type\":\"audio/wav\"}')}}"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

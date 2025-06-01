@@ -1,0 +1,116 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, securityscorecard, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "securityscorecard"
+    ],
+    "suggested_filename": "util_920_workflow_920_automate_manual_securityscorecard.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, securityscorecard. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.351452",
+    "original_filename": "920_workflow_920.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "SecurityScorecard",
+      "type": "n8n-nodes-base.securityScorecard",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "report": "full-scorecard-json",
+        "resource": "report",
+        "operation": "generate",
+        "scorecardIdentifier": "n8n.io"
+      },
+      "credentials": {
+        "securityScorecardApi": "SecurityScorecard Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "SecurityScorecard1",
+      "type": "n8n-nodes-base.securityScorecard",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "limit": 1,
+        "resource": "report"
+      },
+      "credentials": {
+        "securityScorecardApi": "SecurityScorecard Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "SecurityScorecard2",
+      "type": "n8n-nodes-base.securityScorecard",
+      "position": [
+        850,
+        300
+      ],
+      "parameters": {
+        "url": "={{$json[\"download_url\"]}}",
+        "resource": "report",
+        "operation": "download"
+      },
+      "credentials": {
+        "securityScorecardApi": "SecurityScorecard Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "SecurityScorecard": {
+      "main": [
+        [
+          {
+            "node": "SecurityScorecard1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SecurityScorecard1": {
+      "main": [
+        [
+          {
+            "node": "SecurityScorecard2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "SecurityScorecard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that updates data/processes using chargebee, triggered via manual",
+    "category": "BIZ",
+    "business_function": "update",
+    "key_integrations": [
+      "chargebee"
+    ],
+    "suggested_filename": "biz_receive_update_chargebee.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting chargebee. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.818081",
+    "original_filename": "108_Receive_updates_for_events_in_Chargebee.json"
+  },
+  "id": "108",
+  "name": "Receive updates for events in Chargebee",
+  "nodes": [
+    {
+      "name": "Chargebee Trigger",
+      "type": "n8n-nodes-base.chargebeeTrigger",
+      "position": [
+        700,
+        250
+      ],
+      "parameters": {
+        "events": [
+          "*"
+        ]
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

@@ -1,0 +1,41 @@
+{
+  "documentation": {
+    "description": "COMM workflow that creates data/processes using convertkit, triggered via manual",
+    "category": "COMM",
+    "business_function": "create",
+    "key_integrations": [
+      "convertkit"
+    ],
+    "suggested_filename": "comm_receive_create_convertkit.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting convertkit. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.143174",
+    "original_filename": "28_Receive_updates_when_a_subscriber_is_added_through_a_form_in_ConvertKit.json"
+  },
+  "id": "28",
+  "name": "Receive updates when a subscriber is added through a form in ConvertKit",
+  "nodes": [
+    {
+      "name": "ConvertKit Trigger",
+      "type": "n8n-nodes-base.convertKitTrigger",
+      "position": [
+        690,
+        260
+      ],
+      "webhookId": "55336480-7be1-4432-8fc8-d860572c1c18",
+      "parameters": {
+        "event": "formSubscribe",
+        "formId": 1657198
+      },
+      "credentials": {
+        "convertKitApi": "convertkit"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

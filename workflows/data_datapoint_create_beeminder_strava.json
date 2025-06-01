@@ -1,0 +1,72 @@
+{
+  "documentation": {
+    "description": "DATA workflow that creates data/processes using beeminder, strava, triggered via manual",
+    "category": "DATA",
+    "business_function": "create",
+    "key_integrations": [
+      "beeminder",
+      "strava"
+    ],
+    "suggested_filename": "data_datapoint_create_beeminder_strava.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting beeminder, strava. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.058260",
+    "original_filename": "208_Add_a_datapoint_to_Beeminder_when_new_activity_is_added_to_Strava.json"
+  },
+  "id": "208",
+  "name": "Add a datapoint to Beeminder when new activity is added to Strava",
+  "nodes": [
+    {
+      "name": "Strava Trigger",
+      "type": "n8n-nodes-base.stravaTrigger",
+      "position": [
+        470,
+        300
+      ],
+      "webhookId": "2b0c6812-ac24-42e5-b15e-8d1fb7606908",
+      "parameters": {
+        "event": "create",
+        "options": {}
+      },
+      "credentials": {
+        "stravaOAuth2Api": "strava"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Beeminder",
+      "type": "n8n-nodes-base.beeminder",
+      "position": [
+        670,
+        300
+      ],
+      "parameters": {
+        "goalName": "testing",
+        "additionalFields": {
+          "comment": "={{$json[\"object_data\"][\"name\"]}}"
+        }
+      },
+      "credentials": {
+        "beeminderApi": "Beeminder credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Strava Trigger": {
+      "main": [
+        [
+          {
+            "node": "Beeminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

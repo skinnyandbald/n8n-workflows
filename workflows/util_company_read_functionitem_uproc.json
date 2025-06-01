@@ -1,0 +1,122 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using functionitem, uproc, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "functionitem",
+      "uproc",
+      "manual"
+    ],
+    "suggested_filename": "util_company_read_functionitem_uproc.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting functionitem, uproc, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.373925",
+    "original_filename": "112_Get_Company_by_Name.json"
+  },
+  "id": "112",
+  "name": "Get Company by Name",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        440,
+        510
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Create Company Item",
+      "type": "n8n-nodes-base.functionItem",
+      "position": [
+        640,
+        510
+      ],
+      "parameters": {
+        "functionCode": "item.company = \"Killia technologies\";\nitem.country = \"Spain\";\n\nreturn item;"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Get Company by Name",
+      "type": "n8n-nodes-base.uproc",
+      "position": [
+        850,
+        510
+      ],
+      "parameters": {
+        "name": "={{$node[\"Create Company Item\"].json[\"company\"]}}",
+        "tool": "getCompanyByName",
+        "group": "company",
+        "country": "={{$node[\"Create Company Item\"].json[\"country\"]}}",
+        "additionalOptions": {}
+      },
+      "credentials": {
+        "uprocApi": "miquel-uproc"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Company Found?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1050,
+        510
+      ],
+      "parameters": {
+        "conditions": {
+          "number": [],
+          "string": [
+            {
+              "value1": "={{$node[\"Get Company by Name\"].json[\"message\"][\"name\"]}}",
+              "value2": ".+",
+              "operation": "regex"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Create Company Item": {
+      "main": [
+        [
+          {
+            "node": "Get Company by Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Company by Name": {
+      "main": [
+        [
+          {
+            "node": "Company Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Create Company Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

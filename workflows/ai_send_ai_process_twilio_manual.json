@@ -1,0 +1,99 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using twilio, manual, airtable, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "twilio",
+      "manual",
+      "airtable"
+    ],
+    "suggested_filename": "ai_send_ai_process_twilio_manual.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting twilio, manual, airtable. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.296973",
+    "original_filename": "1_Send_SMS_to_numbers_stored_in_Airtable_with_Twilio.json"
+  },
+  "id": "1",
+  "name": "Send SMS to numbers stored in Airtable with Twilio",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "table": "",
+        "operation": "list",
+        "application": "",
+        "additionalOptions": {}
+      },
+      "credentials": {
+        "airtableApi": ""
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Twilio",
+      "type": "n8n-nodes-base.twilio",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "to": "={{$node[\"Airtable\"].json[\"fields\"][\"Number\"]}}",
+        "from": "",
+        "message": "=Hello, {{$node[\"Airtable\"].json[\"fields\"][\"Name\"]}}!\nSending this SMS from n8n!"
+      },
+      "credentials": {
+        "twilioApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Twilio": {
+      "main": [
+        []
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

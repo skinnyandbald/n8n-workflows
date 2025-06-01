@@ -1,0 +1,121 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using vonage, kafka, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "vonage",
+      "kafka"
+    ],
+    "suggested_filename": "comm_receive_automate_vonage_kafka.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting vonage, kafka. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.521980",
+    "original_filename": "166_Receive_messages_from_a_topic_and_send_an_SMS.json"
+  },
+  "id": "166",
+  "name": "Receive messages from a topic and send an SMS",
+  "nodes": [
+    {
+      "name": "Kafka Trigger",
+      "type": "n8n-nodes-base.kafkaTrigger",
+      "position": [
+        490,
+        260
+      ],
+      "parameters": {
+        "topic": "topic_test",
+        "groupId": "n8n",
+        "options": {
+          "jsonParseMessage": true
+        }
+      },
+      "credentials": {
+        "kafka": "kafka"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        690,
+        260
+      ],
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$node[\"Kafka Trigger\"].json[\"message\"][\"temp\"]}}",
+              "value2": 50,
+              "operation": "larger"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Vonage",
+      "type": "n8n-nodes-base.vonage",
+      "position": [
+        890,
+        160
+      ],
+      "parameters": {
+        "from": "Vonage APIs",
+        "message": "=Alert!\nThe value of temp is {{$node[\"Kafka Trigger\"].json[\"message\"][\"temp\"]}}.",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "vonageApi": "vonage"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        890,
+        360
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Vonage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kafka Trigger": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

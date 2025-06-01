@@ -1,0 +1,59 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using hunter, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "hunter",
+      "manual"
+    ],
+    "suggested_filename": "util_519_workflow_519_automate_hunter_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting hunter, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.892609",
+    "original_filename": "519_workflow_519.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Hunter",
+      "type": "n8n-nodes-base.hunter",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "email": "user@example.com",
+        "operation": "emailVerifier"
+      },
+      "credentials": {
+        "hunterApi": "hunter api creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Hunter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

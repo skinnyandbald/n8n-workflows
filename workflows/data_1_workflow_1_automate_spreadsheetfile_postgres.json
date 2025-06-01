@@ -1,0 +1,83 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using spreadsheetfile, postgres, readbinaryfile, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "spreadsheetfile",
+      "postgres",
+      "readbinaryfile"
+    ],
+    "suggested_filename": "data_1_workflow_1_automate_spreadsheetfile_postgres.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting spreadsheetfile, postgres, readbinaryfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.382905",
+    "original_filename": "1_workflow_1.json"
+  },
+  "nodes": [
+    {
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        450,
+        650
+      ],
+      "parameters": {
+        "filePath": "spreadsheet.xls"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Spreadsheet File1",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "position": [
+        600,
+        650
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Insert Rows1",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        750,
+        650
+      ],
+      "parameters": {
+        "table": "product",
+        "columns": "name,ean"
+      },
+      "credentials": {
+        "postgres": "postgres"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File1": {
+      "main": [
+        [
+          {
+            "node": "Insert Rows1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

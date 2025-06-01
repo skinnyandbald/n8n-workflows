@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using clockify, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "clockify"
+    ],
+    "suggested_filename": "util_536_workflow_536_automate_clockify.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting clockify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.049215",
+    "original_filename": "536_workflow_536.json"
+  },
+  "nodes": [
+    {
+      "name": "Clockify Trigger",
+      "type": "n8n-nodes-base.clockifyTrigger",
+      "position": [
+        450,
+        480
+      ],
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "workspaceId": "5f115b31e3f0ad7f90326b39"
+      },
+      "credentials": {
+        "clockifyApi": "clockify_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

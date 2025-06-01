@@ -1,0 +1,36 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using acuityscheduling, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "acuityscheduling"
+    ],
+    "suggested_filename": "util_533_workflow_533_automate_acuityscheduling.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting acuityscheduling. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:45.862388",
+    "original_filename": "533_workflow_533.json"
+  },
+  "nodes": [
+    {
+      "name": "Acuity Scheduling Trigger",
+      "type": "n8n-nodes-base.acuitySchedulingTrigger",
+      "position": [
+        880,
+        400
+      ],
+      "webhookId": "b326732d-9473-469f-a421-dd823d26b945",
+      "parameters": {
+        "event": "appointment.scheduled"
+      },
+      "credentials": {
+        "acuitySchedulingApi": "acuity_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

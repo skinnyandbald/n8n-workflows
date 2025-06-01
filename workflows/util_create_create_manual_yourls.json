@@ -1,0 +1,92 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using manual, yourls, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "yourls"
+    ],
+    "suggested_filename": "util_create_create_manual_yourls.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, yourls. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.423832",
+    "original_filename": "167_Create_a_short_URL_and_get_the_statistics_of_the_URL.json"
+  },
+  "id": "167",
+  "name": "Create a short URL and get the statistics of the URL",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        370,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Yourls",
+      "type": "n8n-nodes-base.yourls",
+      "position": [
+        570,
+        300
+      ],
+      "parameters": {
+        "url": "https://medium.com/n8n-io/sending-sms-the-low-code-way-with-airtable-twilio-programmable-sms-and-n8n-90dbde74223e?source=---------4-----------------------",
+        "additionalFields": {
+          "title": "Sending SMS the Low-Code Way with Airtable, Twilio Programmable SMS, and n8n"
+        }
+      },
+      "credentials": {
+        "yourlsApi": "Yourls"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Yourls1",
+      "type": "n8n-nodes-base.yourls",
+      "position": [
+        770,
+        300
+      ],
+      "parameters": {
+        "shortUrl": "={{$node[\"Yourls\"].json[\"shorturl\"]}}",
+        "operation": "stats"
+      },
+      "credentials": {
+        "yourlsApi": "Yourls"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Yourls": {
+      "main": [
+        [
+          {
+            "node": "Yourls1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Yourls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

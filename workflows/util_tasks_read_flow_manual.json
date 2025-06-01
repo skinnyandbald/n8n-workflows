@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using flow, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "flow",
+      "manual"
+    ],
+    "suggested_filename": "util_tasks_read_flow_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting flow, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.005717",
+    "original_filename": "130_Get_all_the_tasks_in_Flow.json"
+  },
+  "id": "130",
+  "name": "Get all the tasks in Flow",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Flow",
+      "type": "n8n-nodes-base.flow",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "filters": {},
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "credentials": {
+        "flowApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Flow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

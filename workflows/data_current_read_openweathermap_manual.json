@@ -1,0 +1,67 @@
+{
+  "documentation": {
+    "description": "DATA workflow that reads data/processes using openweathermap, manual, triggered via manual",
+    "category": "DATA",
+    "business_function": "read",
+    "key_integrations": [
+      "openweathermap",
+      "manual"
+    ],
+    "suggested_filename": "data_current_read_openweathermap_manual.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting openweathermap, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.534794",
+    "original_filename": "88_Get_the_current_weather_data_for_a_city.json"
+  },
+  "id": "88",
+  "name": "Get the current weather data for a city",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "OpenWeatherMap",
+      "type": "n8n-nodes-base.openWeatherMap",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "cityName": "berlin,de"
+      },
+      "credentials": {
+        "openWeatherMapApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "OpenWeatherMap": {
+      "main": [
+        []
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

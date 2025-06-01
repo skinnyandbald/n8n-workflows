@@ -1,0 +1,93 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using renamekeys, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "renamekeys",
+      "manual"
+    ],
+    "suggested_filename": "util_582_workflow_582_automate_renamekeys_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting renamekeys, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.331344",
+    "original_filename": "582_workflow_582.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        450,
+        320
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "key",
+              "value": "somevalue"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Rename Keys",
+      "type": "n8n-nodes-base.renameKeys",
+      "position": [
+        650,
+        320
+      ],
+      "parameters": {
+        "keys": {
+          "key": [
+            {
+              "newKey": "newkey",
+              "currentKey": "key"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Rename Keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

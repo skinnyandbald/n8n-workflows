@@ -1,0 +1,56 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using generic components, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "function"
+    ],
+    "suggested_filename": "util_763_workflow_763_automate_generic.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting function. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 3,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.832211",
+    "original_filename": "763_workflow_763.json"
+  },
+  "nodes": [
+    {
+      "name": "Mock Data",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        550,
+        300
+      ],
+      "parameters": {
+        "functionCode": "return [{json:[\"item-1\", \"item-2\", \"item-3\", \"item-4\"]}];"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        750,
+        300
+      ],
+      "parameters": {
+        "functionCode": "return items[0].json.map(item => {\n  return {\n    json: {\n      data:item\n    },\n  }\n});\n"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Mock Data": {
+      "main": [
+        [
+          {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

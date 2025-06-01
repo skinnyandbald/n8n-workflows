@@ -1,0 +1,60 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using manual, openthesaurus, triggered via manual",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "manual",
+      "openthesaurus"
+    ],
+    "suggested_filename": "util_synonyms_read_manual_openthesaurus.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, openthesaurus. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.713721",
+    "original_filename": "157_Get_synonyms_of_a_German_word.json"
+  },
+  "id": "157",
+  "name": "Get synonyms of a German word",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        550,
+        260
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "OpenThesaurus",
+      "type": "n8n-nodes-base.openThesaurus",
+      "position": [
+        750,
+        260
+      ],
+      "parameters": {
+        "text": "Hallo",
+        "options": {}
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "OpenThesaurus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

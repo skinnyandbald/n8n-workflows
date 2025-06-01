@@ -1,0 +1,79 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using writebinaryfile, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "writebinaryfile"
+    ],
+    "suggested_filename": "util_101_workflow_101_automate_writebinaryfile.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting writebinaryfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.960500",
+    "original_filename": "101_workflow_101.json"
+  },
+  "nodes": [
+    {
+      "name": "Write Binary File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "position": [
+        800,
+        350
+      ],
+      "parameters": {
+        "fileName": "test.json"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Make Binary",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        600,
+        350
+      ],
+      "parameters": {
+        "functionCode": "items[0].binary = {\n  data: {\n    data: new Buffer(JSON.stringify(items[0].json, null, 2)).toString('base64')\n  }\n};\nreturn items;"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Create Example Data",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        390,
+        350
+      ],
+      "parameters": {
+        "functionCode": "items[0].json = {\n  \"text\": \"asdf\",\n  \"number\": 1\n};\nreturn items;"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Make Binary": {
+      "main": [
+        [
+          {
+            "node": "Write Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Example Data": {
+      "main": [
+        [
+          {
+            "node": "Make Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

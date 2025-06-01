@@ -1,0 +1,66 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that create_contacts data/processes using chargebee, manual, triggered via manual",
+    "category": "BIZ",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "chargebee",
+      "manual"
+    ],
+    "suggested_filename": "biz_create_create_contact_chargebee_manual.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting chargebee, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.974334",
+    "original_filename": "103_Create_a_new_customer_in_Chargebee.json"
+  },
+  "id": "103",
+  "name": "Create a new customer in Chargebee",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Chargebee",
+      "type": "n8n-nodes-base.chargebee",
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "resource": "customer",
+        "properties": {
+          "last_name": "",
+          "first_name": ""
+        }
+      },
+      "credentials": {
+        "chargebeeApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Chargebee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

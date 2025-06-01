@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, msg91, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "msg91"
+    ],
+    "suggested_filename": "util_send_automate_manual_msg91.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, msg91. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.307667",
+    "original_filename": "511_Send_an_SMS_using_MSG91.json"
+  },
+  "name": "Send an SMS using MSG91",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Msg91",
+      "type": "n8n-nodes-base.msg91",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "to": "",
+        "from": "",
+        "message": ""
+      },
+      "credentials": {
+        "msg91Api": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Msg91",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "documentation": {
+    "description": "ECOMMERCE workflow that creates data/processes using woocommerce, manual, triggered via manual",
+    "category": "ECOMMERCE",
+    "business_function": "create",
+    "key_integrations": [
+      "woocommerce",
+      "manual"
+    ],
+    "suggested_filename": "ecommerce_create_create_woocommerce_manual.json",
+    "business_value": "Streamlines e-commerce operations from order processing to customer management by connecting woocommerce, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.500589",
+    "original_filename": "187_Create,_update_and_get_a_product_from_WooCommerce.json"
+  },
+  "id": "187",
+  "name": "Create, update and get a product from WooCommerce",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "WooCommerce",
+      "type": "n8n-nodes-base.wooCommerce",
+      "position": [
+        430,
+        300
+      ],
+      "parameters": {
+        "name": "n8n Sweatshirt",
+        "imagesUi": {
+          "imagesValues": []
+        },
+        "metadataUi": {
+          "metadataValues": []
+        },
+        "additionalFields": {
+          "description": "Stay warm with this sweatshirt!",
+          "regularPrice": "30"
+        }
+      },
+      "credentials": {
+        "wooCommerceApi": "woocommerce"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "WooCommerce1",
+      "type": "n8n-nodes-base.wooCommerce",
+      "position": [
+        630,
+        300
+      ],
+      "parameters": {
+        "operation": "update",
+        "productId": "={{$node[\"WooCommerce\"].json[\"id\"]}}",
+        "updateFields": {
+          "stockQuantity": 100
+        }
+      },
+      "credentials": {
+        "wooCommerceApi": "woocommerce"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "WooCommerce2",
+      "type": "n8n-nodes-base.wooCommerce",
+      "position": [
+        830,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "productId": "={{$node[\"WooCommerce\"].json[\"id\"]}}"
+      },
+      "credentials": {
+        "wooCommerceApi": "woocommerce"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "WooCommerce": {
+      "main": [
+        [
+          {
+            "node": "WooCommerce1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WooCommerce1": {
+      "main": [
+        [
+          {
+            "node": "WooCommerce2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "WooCommerce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, mailgun, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "mailgun"
+    ],
+    "suggested_filename": "util_522_workflow_522_automate_manual_mailgun.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, mailgun. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.957913",
+    "original_filename": "522_workflow_522.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Mailgun",
+      "type": "n8n-nodes-base.mailgun",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "text": "This is a test message ",
+        "subject": "This is a Subject",
+        "toEmail": "user2@example.com",
+        "fromEmail": "user@example.com"
+      },
+      "credentials": {
+        "mailgunApi": "mailgun-creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Mailgun",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

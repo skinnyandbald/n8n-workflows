@@ -1,0 +1,59 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, microsoftexcel, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "microsoftexcel"
+    ],
+    "suggested_filename": "util_566_workflow_566_automate_manual_microsoftexcel.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, microsoftexcel. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.836601",
+    "original_filename": "566_workflow_566.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft Excel",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "filters": {},
+        "operation": "getAll"
+      },
+      "credentials": {
+        "microsoftExcelOAuth2Api": "ms-oauth-creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

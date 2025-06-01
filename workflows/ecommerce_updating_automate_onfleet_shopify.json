@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "ECOMMERCE workflow that automates data/processes using onfleet, shopify, triggered via manual",
+    "category": "ECOMMERCE",
+    "business_function": "automate",
+    "key_integrations": [
+      "onfleet",
+      "shopify"
+    ],
+    "suggested_filename": "ecommerce_updating_automate_onfleet_shopify.json",
+    "business_value": "Streamlines e-commerce operations from order processing to customer management by connecting onfleet, shopify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.439582",
+    "original_filename": "1545_Updating_Shopify_tags_on_Onfleet_events.json"
+  },
+  "name": "Updating Shopify tags on Onfleet events",
+  "nodes": [
+    {
+      "name": "Onfleet Trigger",
+      "type": "n8n-nodes-base.onfleetTrigger",
+      "position": [
+        460,
+        300
+      ],
+      "webhookId": "6d6a2bee-f83e-4ebd-a1d5-8708c34393dc",
+      "parameters": {
+        "triggerOn": "taskDelayed",
+        "additionalFields": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Shopify",
+      "type": "n8n-nodes-base.shopify",
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "operation": "update",
+        "updateFields": {
+          "tags": ""
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Onfleet Trigger": {
+      "main": [
+        [
+          {
+            "node": "Shopify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

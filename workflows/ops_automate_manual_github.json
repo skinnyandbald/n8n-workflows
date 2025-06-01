@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "OPS workflow that automates data/processes using manual, github, triggered via manual",
+    "category": "OPS",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "github"
+    ],
+    "suggested_filename": "ops_automate_manual_github.json",
+    "business_value": "Enhances operational efficiency through automated monitoring and management by connecting manual, github. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.429496",
+    "original_filename": "5_new.json"
+  },
+  "id": "5",
+  "name": "new",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        540,
+        350
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Github",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        790,
+        350
+      ],
+      "parameters": {
+        "owner": "n8n-io",
+        "resource": "repository",
+        "operation": "getProfile",
+        "repository": "n8n"
+      },
+      "credentials": {
+        "githubApi": "shraddha"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Github",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

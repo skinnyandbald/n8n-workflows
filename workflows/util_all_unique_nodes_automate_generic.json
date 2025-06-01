@@ -1,0 +1,15 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using generic components, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [],
+    "suggested_filename": "util_all_unique_nodes_automate_generic.json",
+    "business_value": "Provides utility functions and general automation capabilities. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 0,
+    "total_nodes": 0,
+    "metadata_added": "2025-06-01T14:03:46.902956",
+    "original_filename": "ALL_unique_nodes.json"
+  }
+}

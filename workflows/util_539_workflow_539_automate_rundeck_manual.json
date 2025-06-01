@@ -1,0 +1,58 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using rundeck, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "rundeck",
+      "manual"
+    ],
+    "suggested_filename": "util_539_workflow_539_automate_rundeck_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting rundeck, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.228263",
+    "original_filename": "539_workflow_539.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Rundeck",
+      "type": "n8n-nodes-base.rundeck",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "jobid": "f02c7661-6f75-4ffe-958c-c0ed5f9bc9e6"
+      },
+      "credentials": {
+        "rundeckApi": "rundeck_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Rundeck",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

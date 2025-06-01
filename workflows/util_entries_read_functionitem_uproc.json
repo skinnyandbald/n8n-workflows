@@ -1,0 +1,89 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using functionitem, uproc, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "functionitem",
+      "uproc",
+      "manual"
+    ],
+    "suggested_filename": "util_entries_read_functionitem_uproc.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting functionitem, uproc, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.225534",
+    "original_filename": "113_Get_DNS_entries.json"
+  },
+  "id": "113",
+  "name": "Get DNS entries",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        240,
+        290
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Create Domain Item",
+      "type": "n8n-nodes-base.functionItem",
+      "position": [
+        450,
+        290
+      ],
+      "parameters": {
+        "functionCode": "item.domain = \"n8n.io\";\nreturn item;"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Get DNS records",
+      "type": "n8n-nodes-base.uproc",
+      "position": [
+        650,
+        290
+      ],
+      "parameters": {
+        "tool": "getDomainRecords",
+        "group": "internet",
+        "domain": "= {{$node[\"Create Domain Item\"].json[\"domain\"]}}",
+        "additionalOptions": {}
+      },
+      "credentials": {
+        "uprocApi": "miquel-uproc"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Create Domain Item": {
+      "main": [
+        [
+          {
+            "node": "Get DNS records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Create Domain Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

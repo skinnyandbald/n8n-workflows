@@ -1,0 +1,128 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_contacts data/processes using manual, iterable, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "manual",
+      "iterable"
+    ],
+    "suggested_filename": "util_create_create_contact_manual_iterable.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, iterable. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.774364",
+    "original_filename": "165_Create,_update_and_get_a_user_from_Iterable.json"
+  },
+  "id": "165",
+  "name": "Create, update and get a user from Iterable",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        310,
+        340
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Iterable",
+      "type": "n8n-nodes-base.iterable",
+      "position": [
+        510,
+        340
+      ],
+      "parameters": {
+        "value": "",
+        "identifier": "email",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "iterableApi": "Iterable"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Iterable1",
+      "type": "n8n-nodes-base.iterable",
+      "position": [
+        710,
+        340
+      ],
+      "parameters": {
+        "value": "={{$node[\"Iterable\"].parameter[\"value\"]}}",
+        "identifier": "email",
+        "additionalFields": {
+          "dataFieldsUi": {
+            "dataFieldValues": [
+              {
+                "key": "Name",
+                "value": ""
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {
+        "iterableApi": "Iterable"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Iterable2",
+      "type": "n8n-nodes-base.iterable",
+      "position": [
+        910,
+        340
+      ],
+      "parameters": {
+        "email": "={{$node[\"Iterable\"].parameter[\"value\"]}}",
+        "operation": "get"
+      },
+      "credentials": {
+        "iterableApi": "Iterable"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Iterable": {
+      "main": [
+        [
+          {
+            "node": "Iterable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Iterable1": {
+      "main": [
+        [
+          {
+            "node": "Iterable2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Iterable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

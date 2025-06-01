@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_tasks data/processes using jira, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_task",
+    "key_integrations": [
+      "jira",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_task_jira_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting jira, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.758441",
+    "original_filename": "87_Create_a_new_issue_in_Jira.json"
+  },
+  "id": "87",
+  "name": "Create a new issue in Jira",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        350,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Jira",
+      "type": "n8n-nodes-base.jira",
+      "position": [
+        550,
+        300
+      ],
+      "parameters": {
+        "project": "",
+        "summary": "Firewall on fire",
+        "issueType": "10001",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "jiraSoftwareCloudApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Jira",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

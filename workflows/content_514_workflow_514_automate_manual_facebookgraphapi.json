@@ -1,0 +1,70 @@
+{
+  "documentation": {
+    "description": "CONTENT workflow that automates data/processes using manual, facebookgraphapi, triggered via manual",
+    "category": "CONTENT",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "facebookgraphapi"
+    ],
+    "suggested_filename": "content_514_workflow_514_automate_manual_facebookgraphapi.json",
+    "business_value": "Automates content creation, management, and distribution processes by connecting manual, facebookgraphapi. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.449649",
+    "original_filename": "514_workflow_514.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Facebook Graph API",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "node": "me",
+        "options": {
+          "fields": {
+            "field": [
+              {
+                "name": "last_name"
+              },
+              {
+                "name": "first_name"
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {
+        "facebookGraphApi": "graph_credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

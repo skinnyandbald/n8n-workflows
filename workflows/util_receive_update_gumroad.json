@@ -1,0 +1,40 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using gumroad, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "gumroad"
+    ],
+    "suggested_filename": "util_receive_update_gumroad.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting gumroad. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.170283",
+    "original_filename": "34_Receive_updates_when_a_sale_is_made_in_Gumroad.json"
+  },
+  "id": "34",
+  "name": "Receive updates when a sale is made in Gumroad",
+  "nodes": [
+    {
+      "name": "Gumroad Trigger",
+      "type": "n8n-nodes-base.gumroadTrigger",
+      "position": [
+        1310,
+        700
+      ],
+      "webhookId": "d72f9547-0530-4733-9e8b-3e3b1beec2eb",
+      "parameters": {
+        "resource": "sale"
+      },
+      "credentials": {
+        "gumroadApi": "gumroad"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

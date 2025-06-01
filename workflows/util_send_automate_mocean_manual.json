@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using mocean, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "mocean",
+      "manual"
+    ],
+    "suggested_filename": "util_send_automate_mocean_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting mocean, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.717571",
+    "original_filename": "59_Send_an_SMS_using_the_Mocean_node.json"
+  },
+  "id": "59",
+  "name": "Send an SMS using the Mocean node",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        590,
+        260
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Mocean",
+      "type": "n8n-nodes-base.mocean",
+      "position": [
+        790,
+        260
+      ],
+      "parameters": {
+        "to": "",
+        "from": "",
+        "message": ""
+      },
+      "credentials": {
+        "moceanApi": "mocean"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Mocean",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

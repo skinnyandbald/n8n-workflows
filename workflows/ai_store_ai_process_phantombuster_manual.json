@@ -1,0 +1,134 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using phantombuster, manual, airtable, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "phantombuster",
+      "manual",
+      "airtable"
+    ],
+    "suggested_filename": "ai_store_ai_process_phantombuster_manual.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting phantombuster, manual, airtable. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.838379",
+    "original_filename": "201_Store_the_output_of_a_phantom_in_Airtable.json"
+  },
+  "id": "201",
+  "name": "Store the output of a phantom in Airtable",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        270,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Phantombuster",
+      "type": "n8n-nodes-base.phantombuster",
+      "position": [
+        470,
+        300
+      ],
+      "parameters": {
+        "agentId": "",
+        "operation": "getOutput",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "phantombusterApi": "Phantombuster Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        670,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Name",
+              "value": "={{$node[\"Phantombuster\"].json[\"general\"][\"fullName\"]}}"
+            },
+            {
+              "name": "Email",
+              "value": "={{$node[\"Phantombuster\"].json[\"details\"][\"mail\"]}}"
+            },
+            {
+              "name": "Company",
+              "value": "={{$node[\"Phantombuster\"].json[\"jobs\"][0][\"companyName\"]}}"
+            }
+          ]
+        },
+        "options": {},
+        "keepOnlySet": true
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        870,
+        300
+      ],
+      "parameters": {
+        "table": "",
+        "options": {},
+        "operation": "append",
+        "application": ""
+      },
+      "credentials": {
+        "airtableApi": "Airtable Credentials n8n"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phantombuster": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Phantombuster",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

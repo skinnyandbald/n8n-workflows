@@ -1,0 +1,94 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using emelia, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "emelia"
+    ],
+    "suggested_filename": "util_961_workflow_961_automate_emelia.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting emelia. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.190782",
+    "original_filename": "961_workflow_961.json"
+  },
+  "nodes": [
+    {
+      "name": "Emelia",
+      "type": "n8n-nodes-base.emelia",
+      "position": [
+        530,
+        310
+      ],
+      "parameters": {
+        "operation": "create",
+        "campaignName": "n8n-docs"
+      },
+      "credentials": {
+        "emeliaApi": "Emelia API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Emelia1",
+      "type": "n8n-nodes-base.emelia",
+      "position": [
+        730,
+        310
+      ],
+      "parameters": {
+        "operation": "addContact",
+        "campaignId": "603dfd70cbe34c3c9730fd09",
+        "contactEmail": "email@example.com",
+        "additionalFields": {
+          "firstName": "NAME"
+        }
+      },
+      "credentials": {
+        "emeliaApi": "Emelia API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Emelia2",
+      "type": "n8n-nodes-base.emelia",
+      "position": [
+        930,
+        310
+      ],
+      "parameters": {
+        "campaignId": "={{$node[\"Emelia\"].json[\"_id\"]}}"
+      },
+      "credentials": {
+        "emeliaApi": "Emelia API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Emelia": {
+      "main": [
+        [
+          {
+            "node": "Emelia1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emelia1": {
+      "main": [
+        [
+          {
+            "node": "Emelia2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

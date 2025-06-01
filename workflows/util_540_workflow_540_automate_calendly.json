@@ -1,0 +1,39 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using calendly, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "calendly"
+    ],
+    "suggested_filename": "util_540_workflow_540_automate_calendly.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting calendly. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.549657",
+    "original_filename": "540_workflow_540.json"
+  },
+  "nodes": [
+    {
+      "name": "Calendly Trigger",
+      "type": "n8n-nodes-base.calendlyTrigger",
+      "position": [
+        880,
+        400
+      ],
+      "webhookId": "9d13bcea-781a-4462-a9af-44bfb1fb6891",
+      "parameters": {
+        "events": [
+          "invitee.created",
+          "invitee.canceled"
+        ]
+      },
+      "credentials": {
+        "calendlyApi": "calendly_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

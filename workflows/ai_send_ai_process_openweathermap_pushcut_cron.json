@@ -1,0 +1,101 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using openweathermap, pushcut, cron, triggered via cron",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "openweathermap",
+      "pushcut",
+      "cron"
+    ],
+    "suggested_filename": "ai_send_ai_process_openweathermap_pushcut_cron.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting openweathermap, pushcut, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.050189",
+    "original_filename": "82_Send_daily_weather_updates_via_a_push_notification_using_the_Pushcut_node.json"
+  },
+  "id": "82",
+  "name": "Send daily weather updates via a push notification using the Pushcut node",
+  "nodes": [
+    {
+      "name": "Pushcut",
+      "type": "n8n-nodes-base.pushcut",
+      "position": [
+        1050,
+        420
+      ],
+      "parameters": {
+        "additionalFields": {
+          "text": "=Hey! The temperature outside is {{$node[\"OpenWeatherMap\"].json[\"main\"][\"temp\"]}}°C.",
+          "title": "Today's Weather Update"
+        },
+        "notificationName": "n8n"
+      },
+      "credentials": {
+        "pushcutApi": "Pushcut Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "OpenWeatherMap",
+      "type": "n8n-nodes-base.openWeatherMap",
+      "position": [
+        850,
+        420
+      ],
+      "parameters": {
+        "cityName": "berlin"
+      },
+      "credentials": {
+        "openWeatherMapApi": "open-weather-map"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        650,
+        420
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Pushcut",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

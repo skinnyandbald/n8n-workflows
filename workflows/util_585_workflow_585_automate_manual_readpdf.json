@@ -1,0 +1,77 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, readpdf, readbinaryfile, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "readpdf",
+      "readbinaryfile"
+    ],
+    "suggested_filename": "util_585_workflow_585_automate_manual_readpdf.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, readpdf, readbinaryfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:47.208914",
+    "original_filename": "585_workflow_585.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        680,
+        400
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        880,
+        400
+      ],
+      "parameters": {
+        "filePath": "/data/pdf.pdf"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Read PDF",
+      "type": "n8n-nodes-base.readPDF",
+      "position": [
+        1090,
+        400
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "Read PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

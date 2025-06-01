@@ -1,0 +1,134 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_contacts data/processes using googlecontacts, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "googlecontacts",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_contact_googlecontacts_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting googlecontacts, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.207868",
+    "original_filename": "20_Create,_update_and_get_a_contact_in_Google_Contacts.json"
+  },
+  "id": "20",
+  "name": "Create, update and get a contact in Google Contacts",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        190,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Contacts",
+      "type": "n8n-nodes-base.googleContacts",
+      "position": [
+        390,
+        300
+      ],
+      "parameters": {
+        "givenName": "n8n",
+        "familyName": "n8n",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "googleContactsOAuth2Api": "google-contact"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Contacts1",
+      "type": "n8n-nodes-base.googleContacts",
+      "position": [
+        590,
+        300
+      ],
+      "parameters": {
+        "fields": [],
+        "contactId": "={{$node[\"Google Contacts\"].json[\"contactId\"]}}",
+        "operation": "update",
+        "updateFields": {
+          "companyUi": {
+            "companyValues": [
+              {
+                "name": "n8n",
+                "title": "n8n",
+                "domain": "n8n.io",
+                "current": true
+              }
+            ]
+          }
+        }
+      },
+      "credentials": {
+        "googleContactsOAuth2Api": "google-contact"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Contacts2",
+      "type": "n8n-nodes-base.googleContacts",
+      "position": [
+        790,
+        300
+      ],
+      "parameters": {
+        "fields": [
+          "organizations"
+        ],
+        "contactId": "={{$node[\"Google Contacts\"].json[\"contactId\"]}}",
+        "operation": "get"
+      },
+      "credentials": {
+        "googleContactsOAuth2Api": "google-contact"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Google Contacts": {
+      "main": [
+        [
+          {
+            "node": "Google Contacts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Contacts1": {
+      "main": [
+        [
+          {
+            "node": "Google Contacts2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Google Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

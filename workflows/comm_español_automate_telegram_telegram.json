@@ -1,0 +1,157 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using telegram, telegram, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "telegram",
+      "telegram"
+    ],
+    "suggested_filename": "comm_español_automate_telegram_telegram.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting telegram, telegram. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 5,
+    "metadata_added": "2025-06-01T14:03:47.002941",
+    "original_filename": "27_N8N_Español_-_BOT.json"
+  },
+  "id": "27",
+  "name": "N8N Español - BOT",
+  "nodes": [
+    {
+      "name": "Saludos-IF",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        450,
+        450
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$node[\"Saludos-TelegramTrigger\"].json[\"message\"][\"new_chat_member\"][\"first_name\"]}}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Saludos-IF1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        490,
+        630
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$node[\"Saludos-TelegramTrigger\"].json[\"message\"][\"left_chat_member\"][\"first_name\"]}}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "S-Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        700,
+        660
+      ],
+      "parameters": {
+        "text": "=✖️ {{$node[\"Saludos-TelegramTrigger\"].json[\"message\"][\"left_chat_member\"][\"first_name\"]}} DEP. 🙏 Que los Dioses te protejan.",
+        "chatId": "=@comunidadn8n",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": "N8N Español - BOT"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Saludos-TelegramTrigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        260,
+        560
+      ],
+      "webhookId": "4ef8c98e-e617-4d36-9c6d-04fae7e9298c",
+      "parameters": {
+        "updates": [
+          "*"
+        ],
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": "N8N Español - BOT"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "S-Telegram2",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        730,
+        460
+      ],
+      "parameters": {
+        "text": "=✔️ {{$node[\"Saludos-TelegramTrigger\"].json[\"message\"][\"new_chat_member\"][\"first_name\"]}}, ¡bienvenid@ a N8N en Españoll!  🙌",
+        "chatId": "=@comunidadn8n",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": "N8N Español - BOT"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": true,
+  "settings": {},
+  "connections": {
+    "Saludos-IF": {
+      "main": [
+        [],
+        [
+          {
+            "node": "S-Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saludos-IF1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "S-Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saludos-TelegramTrigger": {
+      "main": [
+        [
+          {
+            "node": "Saludos-IF1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Saludos-IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

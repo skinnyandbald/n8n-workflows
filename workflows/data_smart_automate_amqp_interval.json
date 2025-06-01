@@ -1,0 +1,110 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using amqp, interval, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "amqp",
+      "interval"
+    ],
+    "suggested_filename": "data_smart_automate_amqp_interval.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting amqp, interval. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.421574",
+    "original_filename": "167_Smart_Factory_Data_Generator.json"
+  },
+  "id": "167",
+  "name": "Smart Factory Data Generator",
+  "nodes": [
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "number": [],
+          "string": [
+            {
+              "name": "machine_id.name",
+              "value": "n8n_cr8"
+            },
+            {
+              "name": "temperature_celsius",
+              "value": "={{Math.floor(Math.random() * 100);}}"
+            },
+            {
+              "name": "machine_id.uptime",
+              "value": "={{Math.floor(Math.random() * 100);}}"
+            },
+            {
+              "name": "time_stamp",
+              "value": "={{Date.now();}}"
+            }
+          ],
+          "boolean": []
+        },
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Interval",
+      "type": "n8n-nodes-base.interval",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AMQP Sender",
+      "type": "n8n-nodes-base.amqp",
+      "position": [
+        850,
+        300
+      ],
+      "parameters": {
+        "sink": "berlin_factory_01",
+        "options": {
+          "dataAsObject": true
+        }
+      },
+      "credentials": {
+        "amqp": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "AMQP Sender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interval": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "documentation": {
+    "description": "CONTENT workflow that automates data/processes using medium, manual, triggered via manual",
+    "category": "CONTENT",
+    "business_function": "automate",
+    "key_integrations": [
+      "medium",
+      "manual"
+    ],
+    "suggested_filename": "content_publish_automate_medium_manual.json",
+    "business_value": "Automates content creation, management, and distribution processes by connecting medium, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.860914",
+    "original_filename": "7_Publish_post_to_a_publication.json"
+  },
+  "id": "7",
+  "name": "Publish post to a publication",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Medium",
+      "type": "n8n-nodes-base.medium",
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "title": "",
+        "content": "",
+        "publication": true,
+        "contentFormat": "",
+        "publicationId": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "mediumApi": "medium"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Medium",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

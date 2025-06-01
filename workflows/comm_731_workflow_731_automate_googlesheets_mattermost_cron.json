@@ -1,0 +1,105 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using googlesheets, mattermost, cron, triggered via cron",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "googlesheets",
+      "mattermost",
+      "cron"
+    ],
+    "suggested_filename": "comm_731_workflow_731_automate_googlesheets_mattermost_cron.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting googlesheets, mattermost, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.861941",
+    "original_filename": "731_workflow_731.json"
+  },
+  "nodes": [
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 0 17 28 9 *"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "range": "Sessions!A:D",
+        "options": {},
+        "sheetId": "1nlnsTQKGgQZN-Rtd07K9bn0ROm0aFBC2O4kzM2YaTBI",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": "n8ndocsburner-googlesheets"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Mattermost",
+      "type": "n8n-nodes-base.mattermost",
+      "position": [
+        850,
+        300
+      ],
+      "parameters": {
+        "message": "= Hey @channel, we hope you had a great time at **{{$node[\"Google Sheets\"].json[\"Session\"]}}**.\nLet us know how we did by sharing your feedback with us on the link below!",
+        "channelId": "={{$node[\"Google Sheets\"].json[\"Mattermost Channel ID\"]}}",
+        "attachments": [
+          {
+            "title": "=Feedback Form - {{$node[\"Google Sheets\"].json[\"Session\"]}}",
+            "title_link": "={{$node[\"Google Sheets\"].json[\"Feedback Form Link\"]}}"
+          }
+        ],
+        "otherOptions": {}
+      },
+      "credentials": {
+        "mattermostApi": "mm_failedmachine"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Mattermost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that create_contacts data/processes using helpscout, triggered via manual",
+    "category": "BIZ",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "helpscout"
+    ],
+    "suggested_filename": "biz_receive_create_contact_helpscout.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting helpscout. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.243241",
+    "original_filename": "61_Receive_updates_when_a_customer_is_created_in_HelpScout.json"
+  },
+  "id": "61",
+  "name": "Receive updates when a customer is created in HelpScout",
+  "nodes": [
+    {
+      "name": "HelpScout Trigger",
+      "type": "n8n-nodes-base.helpScoutTrigger",
+      "position": [
+        690,
+        260
+      ],
+      "webhookId": "aaaf8b3f-8247-4d98-ae65-8c6626aade95",
+      "parameters": {
+        "events": [
+          "customer.created"
+        ]
+      },
+      "credentials": {
+        "helpScoutOAuth2Api": "helpscout"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

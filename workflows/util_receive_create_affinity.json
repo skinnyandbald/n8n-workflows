@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using affinity, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "affinity"
+    ],
+    "suggested_filename": "util_receive_create_affinity.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting affinity. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.410906",
+    "original_filename": "63_Receive_updates_when_a_new_list_is_created_in_Affinity.json"
+  },
+  "id": "63",
+  "name": "Receive updates when a new list is created in Affinity",
+  "nodes": [
+    {
+      "name": "Affinity-Trigger",
+      "type": "n8n-nodes-base.affinityTrigger",
+      "position": [
+        690,
+        260
+      ],
+      "webhookId": "e9d2b8f0-9fa9-43c2-b45d-dc96c869bd20",
+      "parameters": {
+        "events": [
+          "list.created"
+        ]
+      },
+      "credentials": {
+        "affinityApi": "affinity"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

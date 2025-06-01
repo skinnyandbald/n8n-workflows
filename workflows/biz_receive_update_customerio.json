@@ -1,0 +1,42 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that updates data/processes using customerio, triggered via manual",
+    "category": "BIZ",
+    "business_function": "update",
+    "key_integrations": [
+      "customerio"
+    ],
+    "suggested_filename": "biz_receive_update_customerio.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting customerio. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.098566",
+    "original_filename": "29_Receive_updates_when_a_subscriber_unsubscribes_in_Customer.io.json"
+  },
+  "id": "29",
+  "name": "Receive updates when a subscriber unsubscribes in Customer.io",
+  "nodes": [
+    {
+      "name": "Customer.io Trigger",
+      "type": "n8n-nodes-base.customerIoTrigger",
+      "position": [
+        650,
+        260
+      ],
+      "webhookId": "88092579-1b8d-4d44-98d5-f24b3579cbc2",
+      "parameters": {
+        "events": [
+          "customer.unsubscribed"
+        ]
+      },
+      "credentials": {
+        "customerIoApi": "customerIO"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

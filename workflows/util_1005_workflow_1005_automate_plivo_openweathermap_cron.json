@@ -1,0 +1,93 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using plivo, openweathermap, cron, triggered via cron",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "plivo",
+      "openweathermap",
+      "cron"
+    ],
+    "suggested_filename": "util_1005_workflow_1005_automate_plivo_openweathermap_cron.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting plivo, openweathermap, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.907371",
+    "original_filename": "1005_workflow_1005.json"
+  },
+  "nodes": [
+    {
+      "name": "Plivo",
+      "type": "n8n-nodes-base.plivo",
+      "position": [
+        1030,
+        400
+      ],
+      "parameters": {
+        "message": "=Hey! The temperature outside is {{$node[\"OpenWeatherMap\"].json[\"main\"][\"temp\"]}}°C."
+      },
+      "credentials": {
+        "plivoApi": "Plivo API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "OpenWeatherMap",
+      "type": "n8n-nodes-base.openWeatherMap",
+      "position": [
+        830,
+        400
+      ],
+      "parameters": {
+        "cityName": "berlin"
+      },
+      "credentials": {
+        "openWeatherMapApi": "owm"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        630,
+        400
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Plivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that automates data/processes using hubspot, manual, triggered via manual",
+    "category": "BIZ",
+    "business_function": "automate",
+    "key_integrations": [
+      "hubspot",
+      "manual"
+    ],
+    "suggested_filename": "biz_automate_hubspot_manual.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting hubspot, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.489424",
+    "original_filename": "7_6.json"
+  },
+  "id": "7",
+  "name": "6",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        440,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Hubspot",
+      "type": "n8n-nodes-base.hubspot",
+      "position": [
+        750,
+        320
+      ],
+      "parameters": {
+        "resource": "contact",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {}
+      },
+      "credentials": {
+        "hubspotApi": "scsc"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Hubspot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

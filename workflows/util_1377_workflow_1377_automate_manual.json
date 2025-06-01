@@ -1,0 +1,86 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual"
+    ],
+    "suggested_filename": "util_1377_workflow_1377_automate_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.956335",
+    "original_filename": "1377_workflow_1377.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Extract domain name",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        700,
+        300
+      ],
+      "parameters": {
+        "functionCode": "// Take email and extract the domain name \nvar email = ($json[\"email\"]);\nvar name   = email.substring(0, email.lastIndexOf(\"@\"));\nvar domain = email.substring(email.lastIndexOf(\"@\") +1);\n\n//To display the final domain name. (result)\n\nreturn [{\n  json: { domain }\n}]"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Sample email",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "email",
+              "value": "email@domain2.com"
+            }
+          ]
+        },
+        "options": {},
+        "keepOnlySet": true
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Sample email": {
+      "main": [
+        [
+          {
+            "node": "Extract domain name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Sample email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

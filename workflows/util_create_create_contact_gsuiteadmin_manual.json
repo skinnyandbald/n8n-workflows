@@ -1,0 +1,125 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_contacts data/processes using gsuiteadmin, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "gsuiteadmin",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_contact_gsuiteadmin_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting gsuiteadmin, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.422592",
+    "original_filename": "215_Create,_update,_and_get_a_user_using_the_G_Suite_Admin_node.json"
+  },
+  "id": "215",
+  "name": "Create, update, and get a user using the G Suite Admin node",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "G Suite Admin",
+      "type": "n8n-nodes-base.gSuiteAdmin",
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "domain": "n8n.io",
+        "lastName": "Nat",
+        "password": "sjhdjsdhbajshdb",
+        "username": "nat",
+        "firstName": "Nathan",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "gSuiteAdminOAuth2Api": "Google"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "G Suite Admin1",
+      "type": "n8n-nodes-base.gSuiteAdmin",
+      "position": [
+        640,
+        300
+      ],
+      "parameters": {
+        "userId": "={{$node[\"G Suite Admin\"].json[\"id\"]}}",
+        "operation": "update",
+        "updateFields": {
+          "lastName": "Nate"
+        }
+      },
+      "credentials": {
+        "gSuiteAdminOAuth2Api": "Google"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "G Suite Admin2",
+      "type": "n8n-nodes-base.gSuiteAdmin",
+      "position": [
+        840,
+        300
+      ],
+      "parameters": {
+        "userId": "={{$node[\"G Suite Admin\"].json[\"id\"]}}",
+        "options": {},
+        "operation": "get"
+      },
+      "credentials": {
+        "gSuiteAdminOAuth2Api": "Google"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "G Suite Admin": {
+      "main": [
+        [
+          {
+            "node": "G Suite Admin1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "G Suite Admin1": {
+      "main": [
+        [
+          {
+            "node": "G Suite Admin2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "G Suite Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

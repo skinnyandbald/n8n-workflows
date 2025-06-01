@@ -1,0 +1,55 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, executeworkflow, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "executeworkflow"
+    ],
+    "suggested_filename": "util_588_workflow_588_automate_manual_executeworkflow.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, executeworkflow. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.199005",
+    "original_filename": "588_workflow_588.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        220,
+        340
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        410,
+        340
+      ],
+      "parameters": {
+        "workflowId": "1"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

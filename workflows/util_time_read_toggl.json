@@ -1,0 +1,43 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using toggl, triggered via manual",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "toggl"
+    ],
+    "suggested_filename": "util_time_read_toggl.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting toggl. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.647857",
+    "original_filename": "138_Get_new_time_entries_from_Toggl.json"
+  },
+  "id": "138",
+  "name": "Get new time entries from Toggl",
+  "nodes": [
+    {
+      "name": "Toggl",
+      "type": "n8n-nodes-base.togglTrigger",
+      "position": [
+        650,
+        250
+      ],
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {}
+          ]
+        }
+      },
+      "credentials": {
+        "togglApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

@@ -1,0 +1,58 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awslambda, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awslambda",
+      "manual"
+    ],
+    "suggested_filename": "util_510_workflow_510_automate_awslambda_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awslambda, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.346391",
+    "original_filename": "510_workflow_510.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS Lambda",
+      "type": "n8n-nodes-base.awsLambda",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "function": "arn:aws:lambda:ap-south-1:100558637562:function:hello-world-sample"
+      },
+      "credentials": {
+        "aws": "amudhan-aws"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "AWS Lambda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using profitwell, mattermost, cron, triggered via cron",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "profitwell",
+      "mattermost",
+      "cron"
+    ],
+    "suggested_filename": "comm_send_automate_profitwell_mattermost_cron.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting profitwell, mattermost, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.868482",
+    "original_filename": "146_Send_financial_metrics_monthly_to_Mattermost.json"
+  },
+  "id": "146",
+  "name": "Send financial metrics monthly to Mattermost",
+  "nodes": [
+    {
+      "name": "ProfitWell",
+      "type": "n8n-nodes-base.profitWell",
+      "position": [
+        730,
+        220
+      ],
+      "parameters": {
+        "type": "monthly",
+        "options": {}
+      },
+      "credentials": {
+        "profitWellApi": "profitwell"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        530,
+        220
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9,
+              "mode": "everyMonth"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Mattermost",
+      "type": "n8n-nodes-base.mattermost",
+      "position": [
+        930,
+        220
+      ],
+      "parameters": {
+        "message": "=Active Customers: {{$node[\"ProfitWell\"].json[\"active_customers\"]}}\nTrailing Customers: {{$node[\"ProfitWell\"].json[\"active_trialing_customers\"]}}\nNew Customers: {{$node[\"ProfitWell\"].json[\"new_customers\"]}}\nGrowth Rate: {{$node[\"ProfitWell\"].json[\"growth_rate\"]}}\nRecurring Revenue: {{$node[\"ProfitWell\"].json[\"recurring_revenue\"]}}",
+        "channelId": "w6rsxrqds3bt9pguxzduowqucy",
+        "attachments": [],
+        "otherOptions": {}
+      },
+      "credentials": {
+        "mattermostApi": "mattermost"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "ProfitWell",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ProfitWell": {
+      "main": [
+        [
+          {
+            "node": "Mattermost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

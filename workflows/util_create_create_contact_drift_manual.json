@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_contacts data/processes using drift, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "drift",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_contact_drift_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting drift, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.958878",
+    "original_filename": "125_Create_a_contact_in_Drift.json"
+  },
+  "id": "125",
+  "name": "Create a contact in Drift",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Drift ",
+      "type": "n8n-nodes-base.drift",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "email": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "driftApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Drift ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

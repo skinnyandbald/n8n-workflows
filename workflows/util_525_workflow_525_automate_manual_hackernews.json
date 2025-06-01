@@ -1,0 +1,56 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using manual, hackernews, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "hackernews"
+    ],
+    "suggested_filename": "util_525_workflow_525_automate_manual_hackernews.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, hackernews. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.768993",
+    "original_filename": "525_workflow_525.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Hacker News",
+      "type": "n8n-nodes-base.hackerNews",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "resource": "all",
+        "additionalFields": {}
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Hacker News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

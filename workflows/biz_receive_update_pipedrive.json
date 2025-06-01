@@ -1,0 +1,37 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that updates data/processes using pipedrive, triggered via manual",
+    "category": "BIZ",
+    "business_function": "update",
+    "key_integrations": [
+      "pipedrive"
+    ],
+    "suggested_filename": "biz_receive_update_pipedrive.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting pipedrive. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.576171",
+    "original_filename": "115_Receive_updates_for_all_changes_in_Pipedrive.json"
+  },
+  "id": "115",
+  "name": "Receive updates for all changes in Pipedrive",
+  "nodes": [
+    {
+      "name": "Pipedrive Trigger",
+      "type": "n8n-nodes-base.pipedriveTrigger",
+      "position": [
+        750,
+        250
+      ],
+      "parameters": {},
+      "credentials": {
+        "pipedriveApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

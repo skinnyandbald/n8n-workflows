@@ -1,0 +1,96 @@
+{
+  "documentation": {
+    "description": "OPS workflow that automates data/processes using httprequest, gitlab, triggered via manual",
+    "category": "OPS",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest",
+      "gitlab"
+    ],
+    "suggested_filename": "ops_1375_workflow_1375_automate_httprequest_gitlab.json",
+    "business_value": "Enhances operational efficiency through automated monitoring and management by connecting httprequest, gitlab. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.976066",
+    "original_filename": "1375_workflow_1375.json"
+  },
+  "nodes": [
+    {
+      "name": "Gitlab Trigger",
+      "type": "n8n-nodes-base.gitlabTrigger",
+      "position": [
+        240,
+        140
+      ],
+      "parameters": {
+        "owner": "tennox",
+        "events": [
+          "tag_push"
+        ],
+        "repository": "ci-test"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        820,
+        40
+      ],
+      "parameters": {
+        "url": "https://app.getoutline.com/api/documents.create",
+        "options": {},
+        "requestMethod": "POST",
+        "authentication": "headerAuth",
+        "jsonParameters": true,
+        "bodyParametersJson": "={ \n\"collectionId\": \"PLACEHOLDER\",\n\"parentDocumentId\": \"PLACEHOLDER\",\n\"publish\": true, \n\"title\": {{JSON.stringify(\"Release \" + $json.body.name)}},\n\"text\": {{JSON.stringify($json.body.description + '\\n\\n\\\\\\n[More info](' + $json.body.url + ')')}}\n}"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        540,
+        140
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.body.object_kind}}",
+              "value2": "release"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gitlab Trigger": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

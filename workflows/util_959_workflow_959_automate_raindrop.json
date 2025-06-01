@@ -1,0 +1,128 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using raindrop, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "raindrop"
+    ],
+    "suggested_filename": "util_959_workflow_959_automate_raindrop.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting raindrop. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.424759",
+    "original_filename": "959_workflow_959.json"
+  },
+  "nodes": [
+    {
+      "name": "Raindrop",
+      "type": "n8n-nodes-base.raindrop",
+      "position": [
+        470,
+        320
+      ],
+      "parameters": {
+        "title": "n8n-docs",
+        "operation": "create",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "raindropOAuth2Api": "Raindrop OAuth Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Raindrop1",
+      "type": "n8n-nodes-base.raindrop",
+      "position": [
+        670,
+        320
+      ],
+      "parameters": {
+        "link": "https://docs.n8n.io",
+        "resource": "bookmark",
+        "operation": "create",
+        "collectionId": "={{$json[\"_id\"]}}",
+        "additionalFields": {
+          "title": "Documentation"
+        }
+      },
+      "credentials": {
+        "raindropOAuth2Api": "Raindrop OAuth Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Raindrop2",
+      "type": "n8n-nodes-base.raindrop",
+      "position": [
+        870,
+        320
+      ],
+      "parameters": {
+        "resource": "bookmark",
+        "operation": "update",
+        "bookmarkId": "={{$json[\"_id\"]}}",
+        "updateFields": {
+          "title": "n8n Documentation"
+        }
+      },
+      "credentials": {
+        "raindropOAuth2Api": "Raindrop OAuth Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Raindrop3",
+      "type": "n8n-nodes-base.raindrop",
+      "position": [
+        1070,
+        320
+      ],
+      "parameters": {
+        "resource": "bookmark",
+        "bookmarkId": "={{$json[\"_id\"]}}"
+      },
+      "credentials": {
+        "raindropOAuth2Api": "Raindrop OAuth Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Raindrop": {
+      "main": [
+        [
+          {
+            "node": "Raindrop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Raindrop1": {
+      "main": [
+        [
+          {
+            "node": "Raindrop2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Raindrop2": {
+      "main": [
+        [
+          {
+            "node": "Raindrop3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

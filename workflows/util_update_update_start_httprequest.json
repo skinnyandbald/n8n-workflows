@@ -1,0 +1,106 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using start, httprequest, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "start",
+      "httprequest",
+      "manual"
+    ],
+    "suggested_filename": "util_update_update_start_httprequest.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting start, httprequest, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 7,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.834331",
+    "original_filename": "Update Twitter banner using HTTP request.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "url": "https://unsplash.com/photos/lUDMZUWFUXE/download?ixid=MnwxMjA3fDB8MXxhbGx8Mnx8fHx8fDJ8fDE2MzczMjY4Mjc&force=true",
+        "options": {},
+        "responseFormat": "file",
+        "headerParametersUi": {
+          "parameter": []
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.twitter.com/1.1/account/update_profile_banner.json",
+        "options": {},
+        "requestMethod": "POST",
+        "authentication": "oAuth1",
+        "jsonParameters": true,
+        "sendBinaryData": true,
+        "binaryPropertyName": "banner:data"
+      },
+      "credentials": {
+        "oAuth1Api": {
+          "id": "300",
+          "name": "Unnamed credential"
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

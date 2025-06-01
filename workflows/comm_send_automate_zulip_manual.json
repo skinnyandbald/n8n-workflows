@@ -1,0 +1,62 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using zulip, manual, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "zulip",
+      "manual"
+    ],
+    "suggested_filename": "comm_send_automate_zulip_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting zulip, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.947620",
+    "original_filename": "126_Send_a_private_message_on_Zulip.json"
+  },
+  "id": "126",
+  "name": "Send a private message on Zulip",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Zulip",
+      "type": "n8n-nodes-base.zulip",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "to": []
+      },
+      "credentials": {
+        "zulipApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Zulip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

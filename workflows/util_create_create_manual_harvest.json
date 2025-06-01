@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using manual, harvest, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "harvest"
+    ],
+    "suggested_filename": "util_create_create_manual_harvest.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, harvest. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.051892",
+    "original_filename": "120_Create_a_client_in_Harvest.json"
+  },
+  "id": "120",
+  "name": "Create a client in Harvest",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Harvest",
+      "type": "n8n-nodes-base.harvest",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "name": "",
+        "resource": "client",
+        "operation": "create",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "harvestApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Harvest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

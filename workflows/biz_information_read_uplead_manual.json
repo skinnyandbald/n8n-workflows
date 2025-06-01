@@ -1,0 +1,62 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that reads data/processes using uplead, manual, triggered via manual",
+    "category": "BIZ",
+    "business_function": "read",
+    "key_integrations": [
+      "uplead",
+      "manual"
+    ],
+    "suggested_filename": "biz_information_read_uplead_manual.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting uplead, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.828435",
+    "original_filename": "129_Get_information_about_a_company_with_UpLead.json"
+  },
+  "id": "129",
+  "name": "Get information about a company with UpLead",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Uplead",
+      "type": "n8n-nodes-base.uplead",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "company": "Apple"
+      },
+      "credentials": {
+        "upleadApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Uplead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

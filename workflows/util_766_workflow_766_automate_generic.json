@@ -1,0 +1,56 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using generic components, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "function"
+    ],
+    "suggested_filename": "util_766_workflow_766_automate_generic.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting function. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 3,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.062110",
+    "original_filename": "766_workflow_766.json"
+  },
+  "nodes": [
+    {
+      "name": "Mock Data",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        670,
+        371
+      ],
+      "parameters": {
+        "functionCode": "return [\n  {\n    json:[\n      {\n        id: 1,\n        name: \"Jim\"\n      }, \n      {\n        id: 2,\n        name: \"Stefan\"\n      },\n      {\n        id: 3,\n        name: \"Hans\"\n      }\n    ]\n  }\n];"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Create JSON-items",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        910,
+        371
+      ],
+      "parameters": {
+        "functionCode": "return items[0].json.map(item => { \n  return {\n    json: item,\n  }\n})\n"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Mock Data": {
+      "main": [
+        [
+          {
+            "node": "Create JSON-items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

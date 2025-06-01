@@ -1,0 +1,111 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using googlesheets, mailchimp, interval, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "googlesheets",
+      "mailchimp",
+      "interval"
+    ],
+    "suggested_filename": "ai_google_ai_process_googlesheets_mailchimp.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting googlesheets, mailchimp, interval. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.139811",
+    "original_filename": "1_Google_Sheet_to_Mailchimp.json"
+  },
+  "id": "1",
+  "name": "Google Sheet to Mailchimp",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        110,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        530,
+        300
+      ],
+      "parameters": {
+        "range": "sheetone!A:C",
+        "options": {},
+        "sheetId": "1jwEoPPrkQ2qYMYLZ_I0hlME_Ya_p2YZvaxG10Nf_R20"
+      },
+      "credentials": {
+        "googleApi": "Google mailchimp"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Mailchimp",
+      "type": "n8n-nodes-base.mailchimp",
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "list": "90d12734de",
+        "email": "={{$node[\"Google Sheets\"].json[\"email\"]}}",
+        "status": "subscribed",
+        "options": {}
+      },
+      "credentials": {
+        "mailchimpApi": "Google mailchimp"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Interval",
+      "type": "n8n-nodes-base.interval",
+      "position": [
+        290,
+        300
+      ],
+      "parameters": {
+        "interval": 2
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": true,
+  "settings": {},
+  "connections": {
+    "Interval": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Mailchimp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        []
+      ]
+    }
+  }
+}

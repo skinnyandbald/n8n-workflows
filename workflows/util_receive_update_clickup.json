@@ -1,0 +1,43 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using clickup, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "clickup"
+    ],
+    "suggested_filename": "util_receive_update_clickup.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting clickup. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:47.074645",
+    "original_filename": "110_Receive_updates_for_events_in_ClickUp.json"
+  },
+  "id": "110",
+  "name": "Receive updates for events in ClickUp",
+  "nodes": [
+    {
+      "name": "ClickUp Trigger",
+      "type": "n8n-nodes-base.clickUpTrigger",
+      "position": [
+        700,
+        250
+      ],
+      "parameters": {
+        "team": "",
+        "events": [
+          "*"
+        ],
+        "filters": {}
+      },
+      "credentials": {
+        "clickUpApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

@@ -1,0 +1,90 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awstextract, manual, awss3, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awstextract",
+      "manual",
+      "awss3"
+    ],
+    "suggested_filename": "util_1282_workflow_1282_automate_awstextract_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awstextract, manual, awss3. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.346646",
+    "original_filename": "1282_workflow_1282.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS Textract",
+      "type": "n8n-nodes-base.awsTextract",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {},
+      "credentials": {
+        "aws": {
+          "id": "12",
+          "name": "AWS account"
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS S3",
+      "type": "n8n-nodes-base.awsS3",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "fileKey": "Rechnung.jpg",
+        "bucketName": "textract-demodata"
+      },
+      "credentials": {
+        "aws": {
+          "id": "12",
+          "name": "AWS account"
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "AWS S3": {
+      "main": [
+        [
+          {
+            "node": "AWS Textract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "AWS S3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

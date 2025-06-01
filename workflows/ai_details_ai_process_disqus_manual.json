@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using disqus, manual, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "disqus",
+      "manual"
+    ],
+    "suggested_filename": "ai_details_ai_process_disqus_manual.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting disqus, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.885762",
+    "original_filename": "119_Get_details_of_a_forum_in_Disqus.json"
+  },
+  "id": "119",
+  "name": "Get details of a forum in Disqus",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Disqus",
+      "type": "n8n-nodes-base.disqus",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "id": "hackernoon",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "disqusApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Disqus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

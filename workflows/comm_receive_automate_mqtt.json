@@ -1,0 +1,39 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using mqtt, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "mqtt"
+    ],
+    "suggested_filename": "comm_receive_automate_mqtt.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting mqtt. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.965754",
+    "original_filename": "51_Receive_messages_for_a_MQTT_queue.json"
+  },
+  "id": "51",
+  "name": "Receive messages for a MQTT queue",
+  "nodes": [
+    {
+      "name": "MQTT Trigger",
+      "type": "n8n-nodes-base.mqttTrigger",
+      "position": [
+        690,
+        260
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "credentials": {
+        "mqtt": "mqtt"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

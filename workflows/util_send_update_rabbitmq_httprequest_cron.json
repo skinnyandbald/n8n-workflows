@@ -1,0 +1,150 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using rabbitmq, httprequest, cron, triggered via cron",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "rabbitmq",
+      "httprequest",
+      "cron"
+    ],
+    "suggested_filename": "util_send_update_rabbitmq_httprequest_cron.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting rabbitmq, httprequest, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.324291",
+    "original_filename": "184_Send_updates_about_the_position_of_the_ISS_every_minute_to_a_topic_in_RabbitMQ.json"
+  },
+  "id": "184",
+  "name": "Send updates about the position of the ISS every minute to a topic in RabbitMQ",
+  "nodes": [
+    {
+      "name": "RabbitMQ",
+      "type": "n8n-nodes-base.rabbitmq",
+      "position": [
+        1300,
+        540
+      ],
+      "parameters": {
+        "queue": "iss-position",
+        "options": {}
+      },
+      "credentials": {
+        "rabbitmq": "RabbitMQ Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1110,
+        540
+      ],
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "Latitude",
+              "value": "={{$node[\"HTTP Request\"].json[\"0\"][\"latitude\"]}}"
+            },
+            {
+              "name": "Longitude",
+              "value": "={{$node[\"HTTP Request\"].json[\"0\"][\"longitude\"]}}"
+            },
+            {
+              "name": "Timestamp",
+              "value": "={{$node[\"HTTP Request\"].json[\"0\"][\"timestamp\"]}}"
+            }
+          ],
+          "string": [
+            {
+              "name": "Name",
+              "value": "={{$node[\"HTTP Request\"].json[\"0\"][\"name\"]}}"
+            }
+          ]
+        },
+        "options": {},
+        "keepOnlySet": true
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        910,
+        540
+      ],
+      "parameters": {
+        "url": "https://api.wheretheiss.at/v1/satellites/25544/positions",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "timestamps",
+              "value": "={{Date.now();}}"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        710,
+        540
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "RabbitMQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

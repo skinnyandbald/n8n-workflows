@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using twake, manual, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "twake",
+      "manual"
+    ],
+    "suggested_filename": "comm_send_automate_twake_manual.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting twake, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.167224",
+    "original_filename": "1_Send_a_message_on_Twake.json"
+  },
+  "id": "1",
+  "name": "Send a message on Twake",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Twake",
+      "type": "n8n-nodes-base.twake",
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "content": "",
+        "channelId": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "twakeCloudApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Twake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

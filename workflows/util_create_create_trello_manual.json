@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using trello, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "trello",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_trello_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting trello, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.287696",
+    "original_filename": "89_Create_a_new_card_in_Trello.json"
+  },
+  "id": "89",
+  "name": "Create a new card in Trello",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Trello",
+      "type": "n8n-nodes-base.trello",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "name": "Hello",
+        "listId": "",
+        "description": "Here are some details",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "trelloApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

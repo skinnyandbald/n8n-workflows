@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that create_contacts data/processes using manual, intercom, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create_contact",
+    "key_integrations": [
+      "manual",
+      "intercom"
+    ],
+    "suggested_filename": "util_create_create_contact_manual_intercom.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, intercom. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.353893",
+    "original_filename": "91_Create_a_new_user_in_Intercom.json"
+  },
+  "id": "91",
+  "name": "Create a new user in Intercom",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        600,
+        250
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Intercom",
+      "type": "n8n-nodes-base.intercom",
+      "position": [
+        800,
+        250
+      ],
+      "parameters": {
+        "idValue": "",
+        "identifierType": "email",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "intercomApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Intercom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

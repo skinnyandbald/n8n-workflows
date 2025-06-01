@@ -1,0 +1,79 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using spreadsheetfile, manual, readbinaryfile, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "spreadsheetfile",
+      "manual",
+      "readbinaryfile"
+    ],
+    "suggested_filename": "util_890_workflow_890_automate_spreadsheetfile_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting spreadsheetfile, manual, readbinaryfile. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.178728",
+    "original_filename": "890_workflow_890.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "position": [
+        650,
+        320
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        450,
+        320
+      ],
+      "parameters": {
+        "filePath": "/data/sample_spreadsheet.csv"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

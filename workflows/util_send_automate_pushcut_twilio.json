@@ -1,0 +1,70 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using pushcut, twilio, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "pushcut",
+      "twilio"
+    ],
+    "suggested_filename": "util_send_automate_pushcut_twilio.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting pushcut, twilio. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.371700",
+    "original_filename": "92_Send_an_SMS_to_a_number_whenever_you_go_out.json"
+  },
+  "id": "92",
+  "name": "Send an SMS to a number whenever you go out",
+  "nodes": [
+    {
+      "name": "Pushcut Trigger",
+      "type": "n8n-nodes-base.pushcutTrigger",
+      "position": [
+        470,
+        300
+      ],
+      "webhookId": "",
+      "parameters": {
+        "actionName": "Leaving Home"
+      },
+      "credentials": {
+        "pushcutApi": "Pushcut Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Twilio",
+      "type": "n8n-nodes-base.twilio",
+      "position": [
+        670,
+        300
+      ],
+      "parameters": {
+        "to": "123",
+        "from": "123",
+        "message": "=I'm {{$node[\"Pushcut Trigger\"].json[\"input\"]}}"
+      },
+      "credentials": {
+        "twilioApi": "twilio"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Pushcut Trigger": {
+      "main": [
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

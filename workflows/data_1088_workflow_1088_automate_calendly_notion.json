@@ -1,0 +1,101 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using calendly, notion, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "calendly",
+      "notion"
+    ],
+    "suggested_filename": "data_1088_workflow_1088_automate_calendly_notion.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting calendly, notion. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.916916",
+    "original_filename": "1088_workflow_1088.json"
+  },
+  "nodes": [
+    {
+      "name": "Calendly Trigger",
+      "type": "n8n-nodes-base.calendlyTrigger",
+      "position": [
+        490,
+        320
+      ],
+      "webhookId": "d932d43a-511e-4e54-9a8d-c8da6f6ab7c2",
+      "parameters": {
+        "events": [
+          "invitee.created"
+        ]
+      },
+      "credentials": {
+        "calendlyApi": "Calendly API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Notion",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        690,
+        320
+      ],
+      "parameters": {
+        "blockUi": {
+          "blockValues": []
+        },
+        "resource": "databasePage",
+        "databaseId": "b40628ca-9000-4576-ab2c-4ed3c37e6ee4",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Name|title",
+              "title": "={{$json[\"payload\"][\"invitee\"][\"name\"]}}",
+              "peopleValue": [],
+              "relationValue": [
+                ""
+              ],
+              "multiSelectValue": []
+            },
+            {
+              "key": "Email|email",
+              "emailValue": "={{$json[\"payload\"][\"invitee\"][\"email\"]}}",
+              "peopleValue": [],
+              "relationValue": [
+                ""
+              ],
+              "multiSelectValue": []
+            },
+            {
+              "key": "Status|select",
+              "peopleValue": [],
+              "selectValue": "6ad3880b-260a-4d12-999f-5b605e096c1c",
+              "relationValue": [
+                ""
+              ],
+              "multiSelectValue": []
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "notionApi": "Notion API Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Calendly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

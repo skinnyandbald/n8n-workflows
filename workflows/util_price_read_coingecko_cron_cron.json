@@ -1,0 +1,151 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that reads data/processes using coingecko, cron, twilio, triggered via cron",
+    "category": "UTIL",
+    "business_function": "read",
+    "key_integrations": [
+      "coingecko",
+      "cron",
+      "twilio"
+    ],
+    "suggested_filename": "util_price_read_coingecko_cron_cron.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting coingecko, cron, twilio. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 10,
+    "total_nodes": 5,
+    "metadata_added": "2025-06-01T14:03:46.584894",
+    "original_filename": "79_Get_the_price_of_BTC_in_EUR_and_send_an_SMS_when_the_price_is_larger_than_EUR_9000.json"
+  },
+  "id": "79",
+  "name": "Get the price of BTC in EUR and send an SMS when the price is larger than EUR 9000",
+  "nodes": [
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        590,
+        500
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "CoinGecko",
+      "type": "n8n-nodes-base.coinGecko",
+      "position": [
+        790,
+        500
+      ],
+      "parameters": {
+        "coinIds": [
+          "bitcoin"
+        ],
+        "options": {},
+        "operation": "price",
+        "currencies": [
+          "eur"
+        ]
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        990,
+        500
+      ],
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$node[\"CoinGecko\"].json[\"bitcoin\"][\"eur\"]}}",
+              "value2": 9000,
+              "operation": "largerEqual"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Twilio",
+      "type": "n8n-nodes-base.twilio",
+      "position": [
+        1190,
+        400
+      ],
+      "parameters": {
+        "to": "1234",
+        "from": "1234",
+        "message": "=The price went up! The new price is {{$node[\"CoinGecko\"].json[\"bitcoin\"][\"eur\"]}}"
+      },
+      "credentials": {
+        "twilioApi": "twilio-credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1190,
+        600
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "CoinGecko",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CoinGecko": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

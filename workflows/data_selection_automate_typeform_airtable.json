@@ -1,0 +1,69 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using typeform, airtable, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "typeform",
+      "airtable"
+    ],
+    "suggested_filename": "data_selection_automate_typeform_airtable.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting typeform, airtable. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.872929",
+    "original_filename": "54_CFP_Selection_1.json"
+  },
+  "id": "54",
+  "name": "CFP Selection 1",
+  "nodes": [
+    {
+      "name": "Typeform Trigger",
+      "type": "n8n-nodes-base.typeformTrigger",
+      "position": [
+        450,
+        250
+      ],
+      "parameters": {
+        "formId": ""
+      },
+      "credentials": {
+        "typeformApi": "Typeform"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        660,
+        250
+      ],
+      "parameters": {
+        "table": "",
+        "operation": "append",
+        "application": ""
+      },
+      "credentials": {
+        "airtableApi": "Airtable"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Typeform Trigger": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

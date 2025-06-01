@@ -1,0 +1,91 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awss3, manual, awstranscribe, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awss3",
+      "manual",
+      "awstranscribe"
+    ],
+    "suggested_filename": "util_1111_workflow_1111_automate_awss3_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awss3, manual, awstranscribe. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:45.859903",
+    "original_filename": "1111_workflow_1111.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        190,
+        160
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS Transcribe",
+      "type": "n8n-nodes-base.awsTranscribe",
+      "position": [
+        590,
+        160
+      ],
+      "parameters": {
+        "options": {},
+        "mediaFileUri": "=s3://{{$node[\"AWS S3\"].parameter[\"bucketName\"]}}/{{$json[\"Key\"]}}",
+        "detectLanguage": true,
+        "transcriptionJobName": "={{$json[\"Key\"].replace(/\\s/g,'-')}}"
+      },
+      "credentials": {
+        "aws": "AWS Transcribe Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS S3",
+      "type": "n8n-nodes-base.awsS3",
+      "position": [
+        390,
+        160
+      ],
+      "parameters": {
+        "options": {},
+        "operation": "getAll",
+        "returnAll": true,
+        "bucketName": "n8n-docs"
+      },
+      "credentials": {
+        "aws": "AWS S3 Credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "AWS S3": {
+      "main": [
+        [
+          {
+            "node": "AWS Transcribe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "AWS S3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

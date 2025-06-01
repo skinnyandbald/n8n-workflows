@@ -1,0 +1,36 @@
+{
+  "documentation": {
+    "description": "ECOMMERCE workflow that automates data/processes using shopify, triggered via manual",
+    "category": "ECOMMERCE",
+    "business_function": "automate",
+    "key_integrations": [
+      "shopify"
+    ],
+    "suggested_filename": "ecommerce_547_workflow_547_automate_shopify.json",
+    "business_value": "Streamlines e-commerce operations from order processing to customer management by connecting shopify. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.323985",
+    "original_filename": "547_workflow_547.json"
+  },
+  "nodes": [
+    {
+      "name": "Shopify Trigger",
+      "type": "n8n-nodes-base.shopifyTrigger",
+      "position": [
+        450,
+        450
+      ],
+      "webhookId": "fd11b3d8-ff82-4902-89cc-c93b36ae38e7",
+      "parameters": {
+        "topic": "orders/create"
+      },
+      "credentials": {
+        "shopifyApi": "shopify_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

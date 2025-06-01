@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using awsses, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "awsses",
+      "manual"
+    ],
+    "suggested_filename": "util_507_workflow_507_automate_awsses_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting awsses, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.187373",
+    "original_filename": "507_workflow_507.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "AWS SES",
+      "type": "n8n-nodes-base.awsSes",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "body": "This is a sample message body in an email\n",
+        "subject": "n8n Rocks",
+        "fromEmail": "n8n@n8n.io",
+        "toAddresses": [
+          "user@example.com",
+          "user2@example.com"
+        ],
+        "additionalFields": {}
+      },
+      "credentials": {
+        "aws": "aws"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "AWS SES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "documentation": {
+    "description": "CONTENT workflow that automates data/processes using contentful, manual, triggered via manual",
+    "category": "CONTENT",
+    "business_function": "automate",
+    "key_integrations": [
+      "contentful",
+      "manual"
+    ],
+    "suggested_filename": "content_automate_contentful_manual.json",
+    "business_value": "Automates content creation, management, and distribution processes by connecting contentful, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.935142",
+    "original_filename": "640_.json"
+  },
+  "name": "",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        150,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Contentful",
+      "type": "n8n-nodes-base.contentful",
+      "position": [
+        350,
+        300
+      ],
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {}
+      },
+      "credentials": {
+        "contentfulApi": "contentful"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Contentful",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

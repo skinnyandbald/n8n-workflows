@@ -1,0 +1,40 @@
+{
+  "documentation": {
+    "description": "OPS workflow that automates data/processes using github, triggered via manual",
+    "category": "OPS",
+    "business_function": "automate",
+    "key_integrations": [
+      "github"
+    ],
+    "suggested_filename": "ops_527_workflow_527_automate_github.json",
+    "business_value": "Enhances operational efficiency through automated monitoring and management by connecting github. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:45.954070",
+    "original_filename": "527_workflow_527.json"
+  },
+  "nodes": [
+    {
+      "name": "Github Trigger",
+      "type": "n8n-nodes-base.githubTrigger",
+      "position": [
+        260,
+        410
+      ],
+      "webhookId": "887a6b2b-dfc3-48b5-86e3-fc414613baee",
+      "parameters": {
+        "owner": "n8n-io",
+        "events": [
+          "*"
+        ],
+        "repository": "n8n-docs"
+      },
+      "credentials": {
+        "githubApi": "github_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

@@ -1,0 +1,75 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using slack, github, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "slack",
+      "github"
+    ],
+    "suggested_filename": "comm_extranet_automate_slack_github.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting slack, github. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.454214",
+    "original_filename": "5ec2322573f7590007802e1f_Extranet_Releases.json"
+  },
+  "id": "5ec2322573f7590007802e1f",
+  "name": "Extranet Releases",
+  "nodes": [
+    {
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "position": [
+        560,
+        550
+      ],
+      "parameters": {
+        "text": "=New release is available in {{$node[\"Github Trigger\"].json[\"body\"][\"repository\"][\"full_name\"]}} !\n{{$node[\"Github Trigger\"].json[\"body\"][\"release\"][\"tag_name\"]}} Details:\n{{$node[\"Github Trigger\"].json[\"body\"][\"release\"][\"body\"]}}\n\nLink: {{$node[\"Github Trigger\"].json[\"body\"][\"release\"][\"html_url\"]}}",
+        "as_user": true,
+        "channel": "extranet-md",
+        "attachments": [],
+        "otherOptions": {}
+      },
+      "credentials": {
+        "slackApi": "Extranet-md"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Github Trigger",
+      "type": "n8n-nodes-base.githubTrigger",
+      "position": [
+        350,
+        550
+      ],
+      "parameters": {
+        "owner": "Mesdocteurs",
+        "events": [
+          "release"
+        ],
+        "repository": "mda-admin-partner-api"
+      },
+      "credentials": {
+        "githubApi": "Github API"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": true,
+  "settings": {},
+  "connections": {
+    "Github Trigger": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using manual, sentryio, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "manual",
+      "sentryio"
+    ],
+    "suggested_filename": "util_create_create_manual_sentryio.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting manual, sentryio. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.945948",
+    "original_filename": "27_Create_a_release_and_get_all_releases.json"
+  },
+  "id": "27",
+  "name": "Create a release and get all releases",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        210,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Sentry.io",
+      "type": "n8n-nodes-base.sentryIo",
+      "position": [
+        410,
+        300
+      ],
+      "parameters": {
+        "url": "",
+        "version": "0.0.1",
+        "projects": [
+          ""
+        ],
+        "resource": "release",
+        "operation": "create",
+        "additionalFields": {},
+        "organizationSlug": ""
+      },
+      "credentials": {
+        "sentryIoApi": "sentry"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Sentry.io1",
+      "type": "n8n-nodes-base.sentryIo",
+      "position": [
+        610,
+        300
+      ],
+      "parameters": {
+        "resource": "release",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {},
+        "organizationSlug": ""
+      },
+      "credentials": {
+        "sentryIoApi": "sentry"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Sentry.io": {
+      "main": [
+        [
+          {
+            "node": "Sentry.io1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Sentry.io",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

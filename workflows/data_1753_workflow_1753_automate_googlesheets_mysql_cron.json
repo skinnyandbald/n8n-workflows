@@ -1,0 +1,104 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using googlesheets, mysql, cron, triggered via cron",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "googlesheets",
+      "mysql",
+      "cron"
+    ],
+    "suggested_filename": "data_1753_workflow_1753_automate_googlesheets_mysql_cron.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting googlesheets, mysql, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.929412",
+    "original_filename": "1753_workflow_1753.json"
+  },
+  "nodes": [
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        100,
+        420
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 5,
+              "mode": "everyWeek"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "MySQL - select",
+      "type": "n8n-nodes-base.mySql",
+      "position": [
+        300,
+        420
+      ],
+      "parameters": {
+        "query": "SELECT * FROM books;",
+        "operation": "executeQuery"
+      },
+      "credentials": {
+        "mySql": {
+          "id": "82",
+          "name": "MySQL account"
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Sheets - write",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        500,
+        420
+      ],
+      "parameters": {
+        "options": {},
+        "sheetId": "qwertz",
+        "operation": "append",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "google_sheets_oauth"
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "MySQL - select",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MySQL - select": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets - write",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

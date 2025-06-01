@@ -1,0 +1,137 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using mailcheck, airtable, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "mailcheck",
+      "airtable"
+    ],
+    "suggested_filename": "data_1055_workflow_1055_automate_mailcheck_airtable.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting mailcheck, airtable. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 7,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.333074",
+    "original_filename": "1055_workflow_1055.json"
+  },
+  "nodes": [
+    {
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        470,
+        200
+      ],
+      "parameters": {
+        "table": "Table 1",
+        "operation": "list",
+        "additionalOptions": {}
+      },
+      "credentials": {
+        "airtableApi": ""
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Mailcheck",
+      "type": "n8n-nodes-base.mailcheck",
+      "position": [
+        670,
+        200
+      ],
+      "parameters": {
+        "email": "={{$json[\"fields\"][\"Email\"]}}"
+      },
+      "credentials": {
+        "mailcheckApi": "Mailcheck API Credentials"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        870,
+        200
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "ID",
+              "value": "={{$node[\"Airtable\"].json[\"id\"]}}"
+            }
+          ],
+          "boolean": [
+            {
+              "name": "Valid",
+              "value": "={{$json[\"mxExists\"]}}"
+            }
+          ]
+        },
+        "options": {},
+        "keepOnlySet": true
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Airtable1",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        1070,
+        200
+      ],
+      "parameters": {
+        "id": "={{$json[\"ID\"]}}",
+        "table": "=Table 1",
+        "fields": [
+          "Valid"
+        ],
+        "options": {},
+        "operation": "update",
+        "application": "={{$node[\"Airtable\"].parameter[\"application\"]}}",
+        "updateAllFields": false
+      },
+      "credentials": {
+        "airtableApi": "Airtable Credentials n8n"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Mailcheck",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mailcheck": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

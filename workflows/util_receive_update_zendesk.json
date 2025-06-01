@@ -1,0 +1,45 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that updates data/processes using zendesk, triggered via manual",
+    "category": "UTIL",
+    "business_function": "update",
+    "key_integrations": [
+      "zendesk"
+    ],
+    "suggested_filename": "util_receive_update_zendesk.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting zendesk. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.556568",
+    "original_filename": "33_Receive_updates_for_support_in_Zendesk.json"
+  },
+  "id": "33",
+  "name": "Receive updates for support in Zendesk",
+  "nodes": [
+    {
+      "name": "Zendesk Trigger",
+      "type": "n8n-nodes-base.zendeskTrigger",
+      "position": [
+        690,
+        300
+      ],
+      "webhookId": "7d01a119-83c7-43b7-8668-a2f26b95d225",
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "all": [
+            {}
+          ]
+        }
+      },
+      "credentials": {
+        "zendeskApi": "zendesk-token"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {}
+}

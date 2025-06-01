@@ -1,0 +1,91 @@
+{
+  "documentation": {
+    "description": "DATA workflow that automates data/processes using mongodb, manual, triggered via manual",
+    "category": "DATA",
+    "business_function": "automate",
+    "key_integrations": [
+      "mongodb",
+      "manual"
+    ],
+    "suggested_filename": "data_503_workflow_503_automate_mongodb_manual.json",
+    "business_value": "Automates data processing, transformation, and synchronization across systems by connecting mongodb, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.617918",
+    "original_filename": "503_workflow_503.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        220,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        420,
+        320
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "my_key",
+              "value": "my_value"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "MongoDB",
+      "type": "n8n-nodes-base.mongoDb",
+      "position": [
+        620,
+        320
+      ],
+      "parameters": {
+        "fields": "my_key",
+        "operation": "insert",
+        "collection": "n8n-collection"
+      },
+      "credentials": {
+        "mongoDb": "mongodb_credentials"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "MongoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

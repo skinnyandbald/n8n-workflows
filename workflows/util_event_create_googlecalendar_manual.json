@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using googlecalendar, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "googlecalendar",
+      "manual"
+    ],
+    "suggested_filename": "util_event_create_googlecalendar_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting googlecalendar, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.494626",
+    "original_filename": "1_Add_a_event_to_Calender.json"
+  },
+  "id": "1",
+  "name": "Add a event to Calender",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        410,
+        320
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Google Calendar",
+      "type": "n8n-nodes-base.googleCalendar",
+      "position": [
+        830,
+        320
+      ],
+      "parameters": {
+        "end": "2020-06-27T07:00:00.000Z",
+        "start": "2020-06-25T07:00:00.000Z",
+        "calendar": "shaligramshraddha@gmail.com",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "googleCalendarOAuth2Api": "new one"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using mailjet, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "mailjet"
+    ],
+    "suggested_filename": "util_521_workflow_521_automate_mailjet.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting mailjet. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.202125",
+    "original_filename": "521_workflow_521.json"
+  },
+  "nodes": [
+    {
+      "name": "Mailjet Trigger",
+      "type": "n8n-nodes-base.mailjetTrigger",
+      "position": [
+        530,
+        400
+      ],
+      "parameters": {
+        "event": "sent"
+      },
+      "credentials": {
+        "mailjetEmailApi": "mailjet creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

@@ -1,0 +1,102 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using sendy, manual, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "sendy",
+      "manual"
+    ],
+    "suggested_filename": "ai_subscriber_ai_process_sendy_manual.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting sendy, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 5,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.406064",
+    "original_filename": "14_Add_a_subscriber_to_a_list_and_create_and_send_a_campaign.json"
+  },
+  "id": "14",
+  "name": "Add a subscriber to a list and create and send a campaign",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Sendy",
+      "type": "n8n-nodes-base.sendy",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "email": "harshil@n8n.io",
+        "listId": "2",
+        "additionalFields": {
+          "name": "Harshil"
+        }
+      },
+      "credentials": {
+        "sendyApi": "sendy"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Sendy1",
+      "type": "n8n-nodes-base.sendy",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "title": "Welcome to n8n",
+        "replyTo": "docs@n8n.io",
+        "subject": "Welcome to n8n",
+        "fromName": "n8n",
+        "htmlText": "<body>\n  <p>Hey!</p>\n  <p>Welcome to n8n!</p>\n</body>",
+        "resource": "campaign",
+        "fromEmail": "docs@n8n.io",
+        "sendCampaign": true,
+        "additionalFields": {
+          "listIds": "2"
+        }
+      },
+      "credentials": {
+        "sendyApi": "sendy"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Sendy": {
+      "main": [
+        [
+          {
+            "node": "Sendy1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Sendy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

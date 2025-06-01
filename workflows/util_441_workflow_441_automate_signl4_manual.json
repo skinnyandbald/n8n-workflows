@@ -1,0 +1,61 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using signl4, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "signl4",
+      "manual"
+    ],
+    "suggested_filename": "util_441_workflow_441_automate_signl4_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting signl4, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.449976",
+    "original_filename": "441_workflow_441.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "SIGNL4",
+      "type": "n8n-nodes-base.signl4",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "message": "This is a test alert sent from n8n to SIGNL4",
+        "additionalFields": {
+          "title": "Sample Title"
+        }
+      },
+      "credentials": {
+        "signl4Api": "Signl4 Team Secret"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "SIGNL4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

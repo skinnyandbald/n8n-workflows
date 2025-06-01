@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using clearbit, manual, triggered via manual",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "clearbit",
+      "manual"
+    ],
+    "suggested_filename": "ai_look_ai_process_clearbit_manual.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting clearbit, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:45.901540",
+    "original_filename": "104_Look_up_a_person_using_their_email_in_Clearbit.json"
+  },
+  "id": "104",
+  "name": "Look up a person using their email in Clearbit",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Clearbit",
+      "type": "n8n-nodes-base.clearbit",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "email": "",
+        "resource": "person",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "clearbitApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Clearbit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "documentation": {
+    "description": "COMM workflow that automates data/processes using manual, microsoftteams, triggered via manual",
+    "category": "COMM",
+    "business_function": "automate",
+    "key_integrations": [
+      "manual",
+      "microsoftteams"
+    ],
+    "suggested_filename": "comm_680_workflow_680_automate_manual_microsoftteams.json",
+    "business_value": "Streamlines communication workflows to improve team collaboration and customer engagement by connecting manual, microsoftteams. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:47.198824",
+    "original_filename": "680_workflow_680.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        540,
+        360
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [
+        740,
+        360
+      ],
+      "parameters": {
+        "name": "n8n-docs-demo",
+        "teamId": "d6b83b00-085d-472c-a6d9-8c2c32c1424e",
+        "options": {}
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": "teams_n8n"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft Teams1",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [
+        940,
+        360
+      ],
+      "parameters": {
+        "teamId": "={{$node[\"Microsoft Teams\"].parameter[\"teamId\"]}}",
+        "channelId": "={{$node[\"Microsoft Teams\"].json[\"id\"]}}",
+        "operation": "update",
+        "updateFields": {
+          "name": "n8n-documentation-demo"
+        }
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": "teams_n8n"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Microsoft Teams2",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "position": [
+        1140,
+        360
+      ],
+      "parameters": {
+        "teamId": "={{$node[\"Microsoft Teams\"].parameter[\"teamId\"]}}",
+        "message": "n8n rocks!",
+        "resource": "channelMessage",
+        "channelId": "={{$node[\"Microsoft Teams\"].json[\"id\"]}}",
+        "messageType": "text"
+      },
+      "credentials": {
+        "microsoftTeamsOAuth2Api": "teams_n8n"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Microsoft Teams": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Teams1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Teams1": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Teams2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

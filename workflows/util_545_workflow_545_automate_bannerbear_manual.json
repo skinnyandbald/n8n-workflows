@@ -1,0 +1,71 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using bannerbear, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "bannerbear",
+      "manual"
+    ],
+    "suggested_filename": "util_545_workflow_545_automate_bannerbear_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting bannerbear, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.072900",
+    "original_filename": "545_workflow_545.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Bannerbear",
+      "type": "n8n-nodes-base.bannerbear",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "templateId": "8BK3vWZJ7Wl5Jzk1aX",
+        "modificationsUi": {
+          "modificationsValues": [
+            {
+              "name": "message",
+              "text": "this is some text",
+              "color": "#3097BC",
+              "background": "#28A96F"
+            }
+          ]
+        },
+        "additionalFields": {
+          "waitForImage": true
+        }
+      },
+      "credentials": {
+        "bannerbearApi": "bannerbear_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Bannerbear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

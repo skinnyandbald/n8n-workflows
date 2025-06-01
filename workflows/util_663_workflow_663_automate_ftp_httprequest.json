@@ -1,0 +1,112 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using ftp, httprequest, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "ftp",
+      "httprequest",
+      "manual"
+    ],
+    "suggested_filename": "util_663_workflow_663_automate_ftp_httprequest.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting ftp, httprequest, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 7,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.827382",
+    "original_filename": "663_workflow_663.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        350
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "FTP",
+      "type": "n8n-nodes-base.ftp",
+      "position": [
+        650,
+        350
+      ],
+      "parameters": {
+        "path": "/upload/n8n_logo.png",
+        "operation": "upload"
+      },
+      "credentials": {
+        "ftp": "ftp_creds"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "FTP1",
+      "type": "n8n-nodes-base.ftp",
+      "position": [
+        850,
+        350
+      ],
+      "parameters": {
+        "path": "/upload/",
+        "operation": "list"
+      },
+      "credentials": {
+        "ftp": "ftp_creds"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        450,
+        350
+      ],
+      "parameters": {
+        "url": "https://n8n.io/n8n-logo.png",
+        "options": {},
+        "responseFormat": "file"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "FTP": {
+      "main": [
+        [
+          {
+            "node": "FTP1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

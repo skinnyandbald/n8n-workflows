@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that creates data/processes using affinity, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "create",
+    "key_integrations": [
+      "affinity",
+      "manual"
+    ],
+    "suggested_filename": "util_create_create_affinity_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting affinity, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.156339",
+    "original_filename": "95_Create_an_organization_in_Affinity.json"
+  },
+  "id": "95",
+  "name": "Create an organization in Affinity",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        400,
+        250
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Affinity",
+      "type": "n8n-nodes-base.affinity",
+      "position": [
+        600,
+        250
+      ],
+      "parameters": {
+        "name": "",
+        "domain": "",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "affinityApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Affinity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

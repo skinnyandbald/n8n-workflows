@@ -1,0 +1,103 @@
+{
+  "documentation": {
+    "description": "AI workflow that ai_processs data/processes using nasa, telegram, cron, triggered via cron",
+    "category": "AI",
+    "business_function": "ai_process",
+    "key_integrations": [
+      "nasa",
+      "telegram",
+      "cron"
+    ],
+    "suggested_filename": "ai_send_ai_process_nasa_telegram_cron.json",
+    "business_value": "Leverages artificial intelligence to enhance decision-making and automate intelligent processes by connecting nasa, telegram, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.965421",
+    "original_filename": "174_Send_the_Astronomy_Picture_of_the_day_daily_to_a_Telegram_channel.json"
+  },
+  "id": "174",
+  "name": "Send the Astronomy Picture of the day daily to a Telegram channel",
+  "nodes": [
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 20
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "NASA",
+      "type": "n8n-nodes-base.nasa",
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "download": false,
+        "additionalFields": {}
+      },
+      "credentials": {
+        "nasaApi": "NASA"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        850,
+        300
+      ],
+      "parameters": {
+        "file": "={{$node[\"NASA\"].json[\"url\"]}}",
+        "chatId": "-485365454",
+        "operation": "sendPhoto",
+        "additionalFields": {
+          "caption": "={{$node[\"NASA\"].json[\"title\"]}}"
+        }
+      },
+      "credentials": {
+        "telegramApi": "Telegram n8n bot"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "NASA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NASA": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

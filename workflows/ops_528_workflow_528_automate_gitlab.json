@@ -1,0 +1,40 @@
+{
+  "documentation": {
+    "description": "OPS workflow that automates data/processes using gitlab, triggered via manual",
+    "category": "OPS",
+    "business_function": "automate",
+    "key_integrations": [
+      "gitlab"
+    ],
+    "suggested_filename": "ops_528_workflow_528_automate_gitlab.json",
+    "business_value": "Enhances operational efficiency through automated monitoring and management by connecting gitlab. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 2,
+    "total_nodes": 1,
+    "metadata_added": "2025-06-01T14:03:46.593973",
+    "original_filename": "528_workflow_528.json"
+  },
+  "nodes": [
+    {
+      "name": "Gitlab Trigger",
+      "type": "n8n-nodes-base.gitlabTrigger",
+      "position": [
+        460,
+        480
+      ],
+      "webhookId": "0e855b27-6465-42be-9610-c61b2e09cef9",
+      "parameters": {
+        "owner": "n8n-io",
+        "events": [
+          "*"
+        ],
+        "repository": "n8n-docs"
+      },
+      "credentials": {
+        "gitlabApi": "gitlab_creds"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {}
+}

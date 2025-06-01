@@ -1,0 +1,140 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using httprequest, timescaledb, cron, triggered via cron",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "httprequest",
+      "timescaledb",
+      "cron"
+    ],
+    "suggested_filename": "util_917_workflow_917_automate_httprequest_timescaledb_cron.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting httprequest, timescaledb, cron. This is a streamlined workflow for efficient automation",
+    "trigger_type": "cron",
+    "complexity_score": 8,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:45.947857",
+    "original_filename": "917_workflow_917.json"
+  },
+  "nodes": [
+    {
+      "name": "TimescaleDB",
+      "type": "n8n-nodes-base.timescaleDb",
+      "position": [
+        1110,
+        260
+      ],
+      "parameters": {
+        "table": "iss",
+        "columns": "latitude, longitude, timestamp"
+      },
+      "credentials": {
+        "timescaleDb": "TimescaleDB"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        910,
+        260
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "latitude",
+              "value": "={{$json[\"0\"][\"latitude\"]}}"
+            },
+            {
+              "name": "longitude",
+              "value": "={{$json[\"0\"][\"longitude\"]}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{$json[\"0\"][\"timestamp\"]}}"
+            }
+          ]
+        },
+        "options": {},
+        "keepOnlySet": true
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        710,
+        260
+      ],
+      "parameters": {
+        "url": "https://api.wheretheiss.at/v1/satellites/25544/positions",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "timestamps",
+              "value": "={{Date.now()}}"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        510,
+        260
+      ],
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "TimescaleDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

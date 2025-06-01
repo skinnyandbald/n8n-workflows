@@ -1,0 +1,64 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using emailsend, manual, triggered via manual",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "emailsend",
+      "manual"
+    ],
+    "suggested_filename": "util_584_workflow_584_automate_emailsend_manual.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting emailsend, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:47.126609",
+    "original_filename": "584_workflow_584.json"
+  },
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "text": "This is a message to demonstrate the n8n Send Email workflow!",
+        "options": {
+          "allowUnauthorizedCerts": false
+        },
+        "subject": "n8n rocks!",
+        "toEmail": "user@example.com",
+        "fromEmail": "user@from.email"
+      },
+      "credentials": {
+        "smtp": "your@smtp_creds.here"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

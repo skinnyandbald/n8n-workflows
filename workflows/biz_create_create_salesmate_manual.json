@@ -1,0 +1,65 @@
+{
+  "documentation": {
+    "description": "BIZ workflow that creates data/processes using salesmate, manual, triggered via manual",
+    "category": "BIZ",
+    "business_function": "create",
+    "key_integrations": [
+      "salesmate",
+      "manual"
+    ],
+    "suggested_filename": "biz_create_create_salesmate_manual.json",
+    "business_value": "Optimizes core business operations and workflows for improved efficiency by connecting salesmate, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 4,
+    "total_nodes": 2,
+    "metadata_added": "2025-06-01T14:03:46.742065",
+    "original_filename": "128_Create_a_company_in_Salesmate.json"
+  },
+  "id": "128",
+  "name": "Create a company in Salesmate",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Salesmate",
+      "type": "n8n-nodes-base.salesmate",
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "name": "",
+        "owner": "",
+        "resource": "company",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "salesmateApi": ""
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Salesmate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

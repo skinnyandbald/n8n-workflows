@@ -1,0 +1,103 @@
+{
+  "documentation": {
+    "description": "UTIL workflow that automates data/processes using webhook, asana, triggered via webhook",
+    "category": "UTIL",
+    "business_function": "automate",
+    "key_integrations": [
+      "webhook",
+      "asana"
+    ],
+    "suggested_filename": "util_987_workflow_987_automate_webhook_asana_webhook.json",
+    "business_value": "Provides utility functions and general automation capabilities by connecting webhook, asana. This is a streamlined workflow for efficient automation",
+    "trigger_type": "webhook",
+    "complexity_score": 6,
+    "total_nodes": 3,
+    "metadata_added": "2025-06-01T14:03:46.032976",
+    "original_filename": "987_workflow_987.json"
+  },
+  "nodes": [
+    {
+      "name": "Asana",
+      "type": "n8n-nodes-base.asana",
+      "position": [
+        450,
+        500
+      ],
+      "parameters": {
+        "name": "={{$json[\"query\"][\"parameter\"]}}",
+        "workspace": "",
+        "authentication": "oAuth2",
+        "otherProperties": {
+          "projects": [
+            ""
+          ]
+        }
+      },
+      "credentials": {
+        "asanaOAuth2Api": ""
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        250,
+        500
+      ],
+      "webhookId": "b43ae7e2-a058-4738-8d49-ac76db6e8166",
+      "parameters": {
+        "path": "asana",
+        "options": {
+          "responsePropertyName": "response"
+        },
+        "responseMode": "lastNode"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        650,
+        500
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "response",
+              "value": "=Created Asana Task:  {{$json[\"permalink_url\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Asana": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Asana",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

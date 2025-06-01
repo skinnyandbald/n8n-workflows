@@ -1,0 +1,126 @@
+{
+  "documentation": {
+    "description": "CONTENT workflow that creates data/processes using ghost, manual, triggered via manual",
+    "category": "CONTENT",
+    "business_function": "create",
+    "key_integrations": [
+      "ghost",
+      "manual"
+    ],
+    "suggested_filename": "content_create_create_ghost_manual.json",
+    "business_value": "Automates content creation, management, and distribution processes by connecting ghost, manual. This is a streamlined workflow for efficient automation",
+    "trigger_type": "manual",
+    "complexity_score": 6,
+    "total_nodes": 4,
+    "metadata_added": "2025-06-01T14:03:46.085167",
+    "original_filename": "170_Create,_update,_and_get_a_post_in_Ghost.json"
+  },
+  "id": "170",
+  "name": "Create, update, and get a post in Ghost",
+  "nodes": [
+    {
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        310,
+        300
+      ],
+      "parameters": {},
+      "typeVersion": 1
+    },
+    {
+      "name": "Ghost",
+      "type": "n8n-nodes-base.ghost",
+      "position": [
+        510,
+        300
+      ],
+      "parameters": {
+        "title": "Running ghost with n8n!",
+        "source": "adminApi",
+        "content": "<p>In this article, you will learn how to automate your Ghost site with n8n!</p>",
+        "operation": "create",
+        "additionalFields": {}
+      },
+      "credentials": {
+        "ghostAdminApi": "Ghost Admin API"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Ghost1",
+      "type": "n8n-nodes-base.ghost",
+      "position": [
+        710,
+        300
+      ],
+      "parameters": {
+        "postId": "={{$node[\"Ghost\"].json[\"id\"]}}",
+        "source": "adminApi",
+        "operation": "update",
+        "updateFields": {
+          "status": "published"
+        }
+      },
+      "credentials": {
+        "ghostAdminApi": "Ghost Admin API"
+      },
+      "typeVersion": 1
+    },
+    {
+      "name": "Ghost2",
+      "type": "n8n-nodes-base.ghost",
+      "position": [
+        910,
+        300
+      ],
+      "parameters": {
+        "by": "id",
+        "source": "adminApi",
+        "options": {},
+        "identifier": "={{$node[\"Ghost\"].json[\"id\"]}}"
+      },
+      "credentials": {
+        "ghostAdminApi": "Ghost Admin API"
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "settings": {},
+  "connections": {
+    "Ghost": {
+      "main": [
+        [
+          {
+            "node": "Ghost1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ghost1": {
+      "main": [
+        [
+          {
+            "node": "Ghost2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Ghost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
